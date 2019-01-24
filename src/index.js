@@ -97,6 +97,8 @@ class FilterSuggest extends Component {
             >
               <Input
                 {...getInputProps()}
+                type='search'
+                data-lpignore={true}
               />
             </TextField>
             {isOpen && dropdownItems.length > 0 ? (
