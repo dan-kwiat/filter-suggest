@@ -1,7 +1,7 @@
 {
-  "name": "dynamic-search",
+  "name": "filter-suggest",
   "version": "1.0.0",
-  "description": "dynamic-search React component",
+  "description": "Dynamic filter suggestion for advanced search query syntax",
   "main": "lib/index.js",
   "module": "es/index.js",
   "files": [
@@ -13,13 +13,20 @@
   "scripts": {
     "build": "nwb build-react-component",
     "clean": "nwb clean-module && nwb clean-demo",
-    "prepublishOnly": "npm run build",
+    "prepublishOnly": "yarn build",
     "start": "nwb serve-react-demo",
     "test": "nwb test-react",
     "test:coverage": "nwb test-react --coverage",
     "test:watch": "nwb test-react --server"
   },
-  "dependencies": {},
+  "dependencies": {
+    "@material/react-list": "^0.9.0",
+    "@material/react-material-icon": "^0.9.0",
+    "@material/react-text-field": "^0.9.0",
+    "@rmwc/circular-progress": "^4.0.6",
+    "downshift": "^3.1.13",
+    "prop-types": "^15.6.2"
+  },
   "peerDependencies": {
     "react": "16.x"
   },
@@ -28,11 +35,24 @@
     "react": "^16.7.0",
     "react-dom": "^16.7.0"
   },
-  "author": "",
+  "author": {
+    "name": "Dan Kwiatkowski",
+    "url": "https://twitter.com/dan_kwiat"
+  },
   "homepage": "",
   "license": "MIT",
   "repository": "",
   "keywords": [
-    "react-component"
+    "react-component",
+    "component",
+    "advanced",
+    "dynamic",
+    "search",
+    "input",
+    "syntax",
+    "filter",
+    "query",
+    "dropdown",
+    "prefix"
   ]
 }

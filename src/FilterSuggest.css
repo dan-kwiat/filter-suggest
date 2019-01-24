@@ -1,0 +1,23 @@
+.filter-menu {
+  padding: 0px;
+  margin-top: 0px;
+  position: absolute;
+  background-color: whitesmoke;
+  top: 0px;
+  left: 0px;
+  right: 0px;
+  max-height: 20rem;
+  overflow-y: auto;
+  overflow-x: hidden;
+  outline: 0px;
+  border-radius: 0px 0px .28571429rem .28571429rem;
+  box-shadow: 0px 2px 3px 0px rgba(34,36,38,.15);
+  box-sizing: border-box;
+  border-color: #6200EE;
+  border-top-width: 0px;
+  border-right-width: 1px;
+  border-bottom-width: 1px;
+  border-left-width: 1px;
+  border-style: none;
+  z-index: 1;
+}
