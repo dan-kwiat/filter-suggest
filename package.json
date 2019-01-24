@@ -1,6 +1,6 @@
 {
   "name": "filter-suggest",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "Dynamic filter suggestion for advanced search query syntax",
   "main": "lib/index.js",
   "module": "es/index.js",
