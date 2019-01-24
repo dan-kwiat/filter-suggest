@@ -10,10 +10,11 @@ import List, {
   ListItemMeta,
 } from '@material/react-list'
 import { CircularProgress } from '@rmwc/circular-progress'
-import './FilterSuggest.css'
 import '@material/react-list/dist/list.css'
 import '@material/react-text-field/dist/text-field.css'
 import '@material/react-material-icon/dist/material-icon.css'
+import '@rmwc/circular-progress/circular-progress.css'
+import './FilterSuggest.css'
 
 class FilterSuggest extends Component {
   stringify = item => {
