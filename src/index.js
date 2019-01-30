@@ -108,6 +108,7 @@ class FilterSuggest extends Component {
             >
               <Input
                 {...getInputProps()}
+                className='fs-search-input'
                 type='search'
                 data-lpignore={true}
               />
@@ -118,7 +119,7 @@ class FilterSuggest extends Component {
               >
                 <div
                   {...getMenuProps()}
-                  className='filter-menu'
+                  className='fs-filter-menu'
                 >
                   <List
                     twoLine

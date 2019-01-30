@@ -1,4 +1,11 @@
-.filter-menu {
+.fs-search-input::-webkit-search-decoration,
+.fs-search-input::-webkit-search-cancel-button,
+.fs-search-input::-webkit-search-results-button,
+.fs-search-input::-webkit-search-results-decoration {
+  -webkit-appearance: none;
+}
+
+.fs-filter-menu {
   padding: 0px;
   margin-top: 0px;
   position: absolute;
