@@ -22,3 +22,12 @@ body {
 .search-container {
   width: 500px;
 }
+
+.filter-chip {
+  max-width: 250px;
+}
+
+.mdc-chip__text {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

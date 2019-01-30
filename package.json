@@ -30,6 +30,8 @@
     "react": "16.x"
   },
   "devDependencies": {
+    "@material/react-chips": "^0.9.0",
+    "@material/react-material-icon": "^0.9.0",
     "nwb": "0.23.x",
     "react": "^16.7.0",
     "react-dom": "^16.7.0"

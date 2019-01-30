@@ -1,32 +1,36 @@
 import React, { Component } from 'react'
 import { render } from 'react-dom'
 import FilterSuggest from '../../src'
+import Chips from './Chips'
+import MaterialIcon from '@material/react-material-icon'
+import '@material/react-chips/dist/chips.css'
+import '@material/react-material-icon/dist/material-icon.css'
 import './demo.css'
 
 const filterTypes = [
   {
     id: 'label',
-    icon: null,
+    icon: <MaterialIcon icon='label' />,
     staticValues: ['one', 'two', 'three'],
   },
   {
     id: 'building',
-    icon: null,
+    icon: <MaterialIcon icon='store' />,
     staticValues: ['four', 'five'],
   },
   {
     id: 'restaurant',
-    icon: null,
+    icon: <MaterialIcon icon='local_dining' />,
     staticValues: ['six', 'seven', 'eight'],
   },
   {
     id: 'location',
-    icon: null,
+    icon: <MaterialIcon icon='place' />,
     staticValues: ['nine', 'ten'],
   },
   {
     id: 'station',
-    icon: null,
+    icon: <MaterialIcon icon='train' />,
     staticValues: ['eleven', 'twelve'],
   },
 ]
@@ -34,17 +38,26 @@ const filterTypes = [
 class Demo extends Component {
   state = {
     inputValue: '',
+    selectedFilters: [],
   }
   render() {
     return (
       <div className='demo'>
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
         <h1>filter-suggest</h1>
         <div className='search-container'>
           <FilterSuggest
+            filterTypes={filterTypes}
             inputValue={this.state.inputValue}
             onInputValueChange={inputValue => this.setState({ inputValue })}
-            onSelect={selectedItem => console.log(selectedItem)}
-            filterTypes={filterTypes}
+            onSelect={x => this.setState(s => {
+              const filterSet = new Set([...s.selectedFilters, x.query])
+              return { selectedFilters: Array.from(filterSet) }
+            })}
+          />
+          <Chips
+            labels={this.state.selectedFilters}
+            setLabels={selectedFilters => this.setState({ selectedFilters })}
           />
         </div>
       </div>
