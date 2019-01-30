@@ -3,7 +3,7 @@ import { render } from 'react-dom'
 import FilterSuggest from '../../src'
 import './demo.css'
 
-const filters = {
+const filterTypes = {
   'label': {
     // icon: 'label',
     staticValues: ['one', 'two', 'three'],
@@ -39,7 +39,7 @@ class Demo extends Component {
             inputValue={this.state.inputValue}
             onInputValueChange={inputValue => this.setState({ inputValue })}
             onSelect={selectedItem => console.log(selectedItem)}
-            dropdownOptions={filters}
+            filterTypes={filterTypes}
           />
         </div>
       </div>

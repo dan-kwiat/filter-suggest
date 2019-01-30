@@ -56,9 +56,9 @@ class FilterSuggest extends Component {
     }))
   }
   getDropdownItems = inputValue => {
-    return Object.keys(this.props.dropdownOptions).reduce((agg, prefix) => ([
+    return Object.keys(this.props.filterTypes).reduce((agg, prefix) => ([
       ...agg,
-      ...this.getOptionMatches(prefix, this.props.dropdownOptions[prefix], inputValue),
+      ...this.getOptionMatches(prefix, this.props.filterTypes[prefix], inputValue),
     ]), [])
   }
   render() {
@@ -101,7 +101,7 @@ class FilterSuggest extends Component {
           <div>
             <TextField
               label={typeof this.props.label === 'undefined' ? (
-                `Search by ${getFilterTypes(Object.keys(this.props.dropdownOptions), inputValue).join(', ')}...`
+                `Search by ${getFilterTypes(Object.keys(this.props.filterTypes), inputValue).join(', ')}...`
               ) : this.props.label}
               style={{ width: '100%' }}
               trailingIcon={this.props.loading ? <CircularProgress /> : undefined}
@@ -150,7 +150,7 @@ class FilterSuggest extends Component {
 }
 FilterSuggest.propTypes = {
   controlledItems: PropTypes.array,
-  dropdownOptions: PropTypes.object,
+  filterTypes: PropTypes.object.isRequired,
   inputValue: PropTypes.string.isRequired,
   label: PropTypes.string,
   loading: PropTypes.bool,
@@ -159,7 +159,6 @@ FilterSuggest.propTypes = {
 }
 FilterSuggest.defaultProps = {
   controlledItems: [],
-  dropdownOptions: {},
 }
 
 export default FilterSuggest
