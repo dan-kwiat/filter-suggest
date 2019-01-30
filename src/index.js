@@ -16,6 +16,15 @@ import '@material/react-material-icon/dist/material-icon.css'
 import '@rmwc/circular-progress/circular-progress.css'
 import './FilterSuggest.css'
 
+const getFilterTypes = (filterTypes, inputValue) => {
+  const cleanValue = inputValue.trim()
+  const idx = filterTypes.indexOf(cleanValue.split(':')[0])
+  if (idx !== -1 && cleanValue.indexOf(`${filterTypes[idx]}:`) === 0) {
+    return [filterTypes[idx]]
+  }
+  return filterTypes
+}
+
 class FilterSuggest extends Component {
   stringify = item => {
     if (!item) return
@@ -91,7 +100,9 @@ class FilterSuggest extends Component {
         }) => (
           <div>
             <TextField
-              label={this.props.label}
+              label={typeof this.props.label === 'undefined' ? (
+                `Search by ${getFilterTypes(Object.keys(this.props.dropdownOptions), inputValue).join(', ')}...`
+              ) : this.props.label}
               style={{ width: '100%' }}
               trailingIcon={this.props.loading ? <CircularProgress /> : undefined}
             >
@@ -149,7 +160,6 @@ FilterSuggest.propTypes = {
 FilterSuggest.defaultProps = {
   controlledItems: [],
   dropdownOptions: {},
-  label: 'Start typing...',
 }
 
 export default FilterSuggest
