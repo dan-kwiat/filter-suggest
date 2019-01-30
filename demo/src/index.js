@@ -3,28 +3,33 @@ import { render } from 'react-dom'
 import FilterSuggest from '../../src'
 import './demo.css'
 
-const filterTypes = {
-  'label': {
+const filterTypes = [
+  {
+    id: 'label',
     // icon: 'label',
     staticValues: ['one', 'two', 'three'],
   },
-  'building': {
+  {
+    id: 'building',
     // icon: 'store',
     staticValues: ['four', 'five'],
   },
-  'restaurant': {
+  {
+    id: 'restaurant',
     // icon: 'local_dining',
     staticValues: ['six', 'seven', 'eight'],
   },
-  'location': {
+  {
+    id: 'location',
     // icon: 'place',
     staticValues: ['nine', 'ten'],
   },
-  'station': {
+  {
+    id: 'station',
     // icon: 'train',
     staticValues: ['eleven', 'twelve'],
   },
-}
+]
 
 class Demo extends Component {
   state = {

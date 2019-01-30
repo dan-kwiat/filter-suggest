@@ -16,13 +16,13 @@ import '@material/react-material-icon/dist/material-icon.css'
 import '@rmwc/circular-progress/circular-progress.css'
 import './FilterSuggest.css'
 
-const getFilterTypes = (filterTypes, inputValue) => {
+const getFilterTypes = (filterIds, inputValue) => {
   const cleanValue = inputValue.trim()
-  const idx = filterTypes.indexOf(cleanValue.split(':')[0])
-  if (idx !== -1 && cleanValue.indexOf(`${filterTypes[idx]}:`) === 0) {
-    return [filterTypes[idx]]
+  const idx = filterIds.indexOf(cleanValue.split(':')[0])
+  if (idx !== -1 && cleanValue.indexOf(`${filterIds[idx]}:`) === 0) {
+    return [filterIds[idx]]
   }
-  return filterTypes
+  return filterIds
 }
 
 class FilterSuggest extends Component {
@@ -30,35 +30,35 @@ class FilterSuggest extends Component {
     if (!item) return
     return item.complete ? '' : item.query
   }
-  getOptionMatches = (prefix, { icon, staticValues }, inputValue) => {
+  getOptionMatches = ({ id, icon, staticValues }, inputValue) => {
     if (!inputValue) return []
     if (inputValue === ':') return [{
-      query: `${prefix}:`,
+      query: `${id}:`,
       icon,
       complete: false,
-      suggestions: (staticValues.join(', ') || 'type for suggestions'),
+      suggestions: ((staticValues || []).join(', ') || 'type for suggestions'),
     }]
-    const isLongerThanPrefix = inputValue.length > (`${prefix}:`).length
-    const prefixValues = isLongerThanPrefix ? staticValues.map(v => `${prefix}:${v}`) : [`${prefix}:`]
+    const isLongerThanPrefix = inputValue.length > (`${id}:`).length
+    const prefixValues = isLongerThanPrefix ? (staticValues || []).map(v => `${id}:${v}`) : [`${id}:`]
     const prefixValueMatches = prefixValues.filter(x => x.toLowerCase().indexOf(inputValue.toLowerCase()) === 0)
-    const valuesMatches = staticValues.filter(x => x.toLowerCase().indexOf(inputValue.toLowerCase()) === 0).map(v => `${prefix}:${v}`)
+    const valuesMatches = (staticValues || []).filter(x => x.toLowerCase().indexOf(inputValue.toLowerCase()) === 0).map(v => `${id}:${v}`)
     const allMatches = [
       ...prefixValueMatches,
       ...valuesMatches,
     ]
     return allMatches.map(query => ({
-      filterType: prefix,
-      value: query.substr(prefix.length + 1),
+      filterType: id,
+      value: query.substr(id.length + 1),
       query,
       icon,
-      complete: query !== `${prefix}:`,
-      suggestions: query === `${prefix}:` ? (staticValues.join(', ') || 'type for suggestions') : null,
+      complete: query !== `${id}:`,
+      suggestions: query === `${id}:` ? ((staticValues || []).join(', ') || 'type for suggestions') : null,
     }))
   }
   getDropdownItems = inputValue => {
-    return Object.keys(this.props.filterTypes).reduce((agg, prefix) => ([
+    return this.props.filterTypes.reduce((agg, filterType) => ([
       ...agg,
-      ...this.getOptionMatches(prefix, this.props.filterTypes[prefix], inputValue),
+      ...this.getOptionMatches(filterType, inputValue),
     ]), [])
   }
   render() {
@@ -101,7 +101,7 @@ class FilterSuggest extends Component {
           <div>
             <TextField
               label={typeof this.props.label === 'undefined' ? (
-                `Search by ${getFilterTypes(Object.keys(this.props.filterTypes), inputValue).join(', ')}...`
+                `Search by ${getFilterTypes(this.props.filterTypes.map(x => x.id), inputValue).join(', ')}...`
               ) : this.props.label}
               style={{ width: '100%' }}
               trailingIcon={this.props.loading ? <CircularProgress /> : undefined}
@@ -150,7 +150,11 @@ class FilterSuggest extends Component {
 }
 FilterSuggest.propTypes = {
   controlledItems: PropTypes.array,
-  filterTypes: PropTypes.object.isRequired,
+  filterTypes: PropTypes.arrayOf(PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    icon: PropTypes.string,
+    staticValues: PropTypes.arrayOf(PropTypes.string),
+  })).isRequired,
   inputValue: PropTypes.string.isRequired,
   label: PropTypes.string,
   loading: PropTypes.bool,
