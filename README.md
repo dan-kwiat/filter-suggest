@@ -1,4 +1,4 @@
-# <FilterSuggest />
+# FilterSuggest
 
 [![Travis][build-badge]][build]
 [![npm package][npm-badge]][npm]
