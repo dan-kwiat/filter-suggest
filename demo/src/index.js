@@ -44,21 +44,33 @@ class Demo extends Component {
     return (
       <div className='demo'>
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
-        <h1>filter-suggest</h1>
-        <div className='search-container'>
-          <FilterSuggest
-            filterTypes={filterTypes}
-            inputValue={this.state.inputValue}
-            onInputValueChange={inputValue => this.setState({ inputValue })}
-            onSelect={x => this.setState(s => {
-              const filterSet = new Set([...s.selectedFilters, x.query])
-              return { selectedFilters: Array.from(filterSet) }
-            })}
-          />
+        <div className='content'>
+          <h1>{`<FilterSuggest />`}</h1>
+          <div className='margin-container'>
+            <a href='https://github.com/dan-kwiat/filter-suggest/tree/master/demo'>
+              Source Code
+            </a>
+          </div>
+          <div className='margin-container'>
+            <FilterSuggest
+              filterTypes={filterTypes}
+              inputValue={this.state.inputValue}
+              onInputValueChange={inputValue => this.setState({ inputValue })}
+              onSelect={x => this.setState(s => {
+                const filterSet = new Set([...s.selectedFilters, x.query])
+                return { selectedFilters: Array.from(filterSet) }
+              })}
+            />
+          </div>
           <Chips
             labels={this.state.selectedFilters}
             setLabels={selectedFilters => this.setState({ selectedFilters })}
           />
+          {this.state.selectedFilters.length === 0 ? null : (
+            <div className='margin-container'>
+              Handling selected filters is left up to you. These filter chips are just provided as an example.
+            </div>
+          )}
         </div>
       </div>
     )

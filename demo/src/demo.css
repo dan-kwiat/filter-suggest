@@ -1,6 +1,9 @@
 body {
   margin: 0;
   padding: 0;
+  font-size: calc(10px + 1vmin);
+  letter-spacing: .05em;
+  line-height: 1.5em;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
     "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;
@@ -15,12 +18,27 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  color: rgba(255, 255, 255, 0.8);
 }
 
-.search-container {
-  width: 500px;
+a {
+  color: rgba(255, 255, 255, 0.8);
+}
+
+h1 {
+  text-align: center;
+}
+
+.content {
+  width: 100%;
+  max-width: 700px;
+  padding: 1em;
+  box-sizing: border-box;
+}
+
+.margin-container {
+  margin-top: 30px;
+  margin-bottom: 30px;
 }
 
 .filter-chip {
