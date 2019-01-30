@@ -43,9 +43,12 @@
     "name": "Dan Kwiatkowski",
     "url": "https://twitter.com/dan_kwiat"
   },
-  "homepage": "",
+  "homepage": "https://dan-kwiat.github.io/filter-suggest",
   "license": "MIT",
-  "repository": "",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/dan-kwiat/filter-suggest.git"
+  },
   "keywords": [
     "react-component",
     "component",
