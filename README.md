@@ -25,6 +25,20 @@
 [https://dan-kwiat.github.io/filter-suggest](https://dan-kwiat.github.io/filter-suggest)
 
 
+## Installation
+
+With Yarn:
+
+```
+yarn add filter-suggest
+```
+
+Or npm:
+
+```
+npm install --save filter-suggest
+```
+
 ## Examples
 
 ### Synchronous
