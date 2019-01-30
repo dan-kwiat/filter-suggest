@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import Downshift from 'downshift'
 import TextField, { Input } from '@material/react-text-field'
-import MaterialIcon from '@material/react-material-icon'
 import List, {
   ListItem,
   ListItemGraphic,
@@ -12,7 +11,6 @@ import List, {
 import { CircularProgress } from '@rmwc/circular-progress'
 import '@material/react-list/dist/list.css'
 import '@material/react-text-field/dist/text-field.css'
-import '@material/react-material-icon/dist/material-icon.css'
 import '@rmwc/circular-progress/circular-progress.css'
 import './FilterSuggest.css'
 
@@ -133,7 +131,7 @@ class FilterSuggest extends Component {
                           {...getItemProps({ item })}
                           key={index}
                         >
-                          {item.icon ? <ListItemGraphic graphic={<MaterialIcon icon={item.icon} />} /> : <span />}
+                          {item.icon ? <ListItemGraphic graphic={item.icon} /> : <span />}
                           <ListItemText primaryText={item.query} secondaryText={item.suggestions ? item.suggestions : ' '} />
                           <ListItemMeta meta={highlightedIndex === index && item.query !== inputValue ? 'Enter' : ' '}/>
                         </ListItem>
@@ -153,7 +151,7 @@ FilterSuggest.propTypes = {
   controlledItems: PropTypes.array,
   filterTypes: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.string.isRequired,
-    icon: PropTypes.string,
+    icon: PropTypes.element,
     staticValues: PropTypes.arrayOf(PropTypes.string),
   })).isRequired,
   inputValue: PropTypes.string.isRequired,

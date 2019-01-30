@@ -6,27 +6,27 @@ import './demo.css'
 const filterTypes = [
   {
     id: 'label',
-    // icon: 'label',
+    icon: null,
     staticValues: ['one', 'two', 'three'],
   },
   {
     id: 'building',
-    // icon: 'store',
+    icon: null,
     staticValues: ['four', 'five'],
   },
   {
     id: 'restaurant',
-    // icon: 'local_dining',
+    icon: null,
     staticValues: ['six', 'seven', 'eight'],
   },
   {
     id: 'location',
-    // icon: 'place',
+    icon: null,
     staticValues: ['nine', 'ten'],
   },
   {
     id: 'station',
-    // icon: 'train',
+    icon: null,
     staticValues: ['eleven', 'twelve'],
   },
 ]

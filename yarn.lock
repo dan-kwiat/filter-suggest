@@ -93,14 +93,6 @@
     classnames "^2.2.5"
     react "^16.4.2"
 
-"@material/react-material-icon@^0.9.0":
-  version "0.9.0"
-  resolved "https://registry.yarnpkg.com/@material/react-material-icon/-/react-material-icon-0.9.0.tgz#a2d515daaae7f4b28803293a4bdd1270cc61e9c0"
-  dependencies:
-    "@material/react-ripple" "^0.9.0"
-    classnames "^2.2.5"
-    react "^16.4.2"
-
 "@material/react-notched-outline@^0.8.0":
   version "0.8.0"
   resolved "https://registry.yarnpkg.com/@material/react-notched-outline/-/react-notched-outline-0.8.0.tgz#83d9ef85b74f416da451f0381b7fc6ab19be9222"
@@ -108,15 +100,6 @@
     "@material/notched-outline" "^0.41.0"
     classnames "^2.2.5"
     react "^16.4.2"
-
-"@material/react-ripple@^0.9.0":
-  version "0.9.0"
-  resolved "https://registry.yarnpkg.com/@material/react-ripple/-/react-ripple-0.9.0.tgz#06a30964f7568a5461f7706aee2049deb5a0989f"
-  dependencies:
-    "@material/ripple" "^0.41.0"
-    classnames "^2.2.5"
-    react "^16.4.2"
-    utility-types "^3.2.1"
 
 "@material/react-text-field@^0.9.0":
   version "0.9.0"
@@ -7166,10 +7149,6 @@ util@^0.11.0:
 utila@^0.4.0, utila@~0.4:
   version "0.4.0"
   resolved "https://registry.yarnpkg.com/utila/-/utila-0.4.0.tgz#8a16a05d445657a3aea5eecc5b12a4fa5379772c"
-
-utility-types@^3.2.1:
-  version "3.4.1"
-  resolved "https://registry.yarnpkg.com/utility-types/-/utility-types-3.4.1.tgz#3caa1d207eac873f989bf8c92cf3e8c539045c61"
 
 utils-merge@1.0.1:
   version "1.0.1"
