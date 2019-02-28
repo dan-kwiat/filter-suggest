@@ -63,7 +63,7 @@ class FilterSuggest extends Component {
     const dropdownItems = [
       ...this.getDropdownItems(this.props.inputValue),
       ...this.props.controlledItems,
-    ]
+    ].slice(0, this.props.maxSuggestions)
     return (
       <Downshift
         selectedItem={null}
@@ -157,11 +157,13 @@ FilterSuggest.propTypes = {
   inputValue: PropTypes.string.isRequired,
   label: PropTypes.string,
   loading: PropTypes.bool,
+  maxSuggestions: PropTypes.number,
   onInputValueChange: PropTypes.func.isRequired,
   onSelect: PropTypes.func.isRequired,
 }
 FilterSuggest.defaultProps = {
   controlledItems: [],
+  maxSuggestions: 12,
 }
 
 export default FilterSuggest
