@@ -30,7 +30,7 @@ class FilterSuggest extends Component {
   }
   getOptionMatches = ({ id, icon, staticValues }, inputValue) => {
     if (!inputValue) return []
-    if (inputValue === ':') return [{
+    if (this.props.showPrefix && inputValue === ':') return [{
       query: `${id}:`,
       icon,
       complete: false,
@@ -41,16 +41,16 @@ class FilterSuggest extends Component {
     const prefixValueMatches = prefixValues.filter(x => x.toLowerCase().indexOf(inputValue.toLowerCase()) === 0)
     const valuesMatches = (staticValues || []).filter(x => x.toLowerCase().indexOf(inputValue.toLowerCase()) > -1).map(v => `${id}:${v}`)
     const allMatches = [
-      ...prefixValueMatches,
+      ...(this.props.showPrefix ? prefixValueMatches : []),
       ...valuesMatches,
     ]
     return allMatches.map(query => ({
       filterType: id,
       value: query.substr(id.length + 1),
-      query,
+      query: this.props.showPrefix ? query : query.substr(id.length + 1),
       icon,
       complete: query !== `${id}:`,
-      suggestions: query === `${id}:` ? ((staticValues || []).join(', ') || 'type for suggestions') : null,
+      suggestions: query === `${id}:` ? ((staticValues || []).join(', ') || 'type for suggestions') : `Filter by ${id}`,
     }))
   }
   getDropdownItems = inputValue => {
@@ -160,10 +160,12 @@ FilterSuggest.propTypes = {
   maxSuggestions: PropTypes.number,
   onInputValueChange: PropTypes.func.isRequired,
   onSelect: PropTypes.func.isRequired,
+  showPrefix: PropTypes.bool,
 }
 FilterSuggest.defaultProps = {
   controlledItems: [],
   maxSuggestions: 12,
+  showPrefix: true,
 }
 
 export default FilterSuggest
