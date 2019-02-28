@@ -39,7 +39,7 @@ class FilterSuggest extends Component {
     const isLongerThanPrefix = inputValue.length > (`${id}:`).length
     const prefixValues = isLongerThanPrefix ? (staticValues || []).map(v => `${id}:${v}`) : [`${id}:`]
     const prefixValueMatches = prefixValues.filter(x => x.toLowerCase().indexOf(inputValue.toLowerCase()) === 0)
-    const valuesMatches = (staticValues || []).filter(x => x.toLowerCase().indexOf(inputValue.toLowerCase()) === 0).map(v => `${id}:${v}`)
+    const valuesMatches = (staticValues || []).filter(x => x.toLowerCase().indexOf(inputValue.toLowerCase()) > -1).map(v => `${id}:${v}`)
     const allMatches = [
       ...prefixValueMatches,
       ...valuesMatches,
