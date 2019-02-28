@@ -45,6 +45,7 @@ class FilterSuggest extends Component {
       ...valuesMatches,
     ]
     return allMatches.map(query => ({
+      id: query,
       filterType: id,
       value: query.substr(id.length + 1),
       query: this.props.showPrefix ? query : query.substr(id.length + 1),
