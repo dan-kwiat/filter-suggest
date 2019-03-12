@@ -118,7 +118,7 @@ class FilterSuggest extends Component {
                           >
                             {icon ? <ListItemGraphic graphic={icon} /> : <span />}
                             <ListItemText primaryText={query} secondaryText={prompt || ' '} />
-                            <ListItemMeta meta={highlightedIndex === index && query !== inputValue ? 'Enter' : ' '}/>
+                            <ListItemMeta meta={highlightedIndex === index ? 'Enter' : ' '}/>
                           </ListItem>
                         )
                       })
