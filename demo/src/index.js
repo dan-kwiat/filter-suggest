@@ -2,38 +2,11 @@ import React, { Component } from 'react'
 import { render } from 'react-dom'
 import FilterSuggest from '../../src'
 import Chips from './Chips'
-import MaterialIcon from '@material/react-material-icon'
+import filterOptions from './data'
+import getFiltersMeta from './getFiltersMeta'
 import '@material/react-chips/dist/chips.css'
 import '@material/react-material-icon/dist/material-icon.css'
 import './demo.css'
-
-const filterTypes = [
-  {
-    id: 'label',
-    icon: <MaterialIcon icon='label' />,
-    staticValues: ['one', 'two', 'three'],
-  },
-  {
-    id: 'building',
-    icon: <MaterialIcon icon='store' />,
-    staticValues: ['four', 'five'],
-  },
-  {
-    id: 'restaurant',
-    icon: <MaterialIcon icon='local_dining' />,
-    staticValues: ['six', 'seven', 'eight'],
-  },
-  {
-    id: 'location',
-    icon: <MaterialIcon icon='place' />,
-    staticValues: ['nine', 'ten'],
-  },
-  {
-    id: 'station',
-    icon: <MaterialIcon icon='train' />,
-    staticValues: ['eleven', 'twelve'],
-  },
-]
 
 class Demo extends Component {
   state = {
@@ -51,15 +24,19 @@ class Demo extends Component {
               Source Code
             </a>
           </div>
+          <h3>Synchronous Example (values stored in client)</h3>
           <div className='margin-container'>
             <FilterSuggest
-              filterTypes={filterTypes}
               inputValue={this.state.inputValue}
               onInputValueChange={inputValue => this.setState({ inputValue })}
               onSelect={x => this.setState(s => {
-                const filterSet = new Set([...s.selectedFilters, x.query])
+                console.log(x)
+                const filterSet = new Set([...s.selectedFilters, x.id])
                 return { selectedFilters: Array.from(filterSet) }
               })}
+              options={filterOptions}
+              meta={getFiltersMeta}
+              label='Filter by genre, actor, film...'
             />
           </div>
           <Chips
@@ -68,7 +45,7 @@ class Demo extends Component {
           />
           {this.state.selectedFilters.length === 0 ? null : (
             <div className='margin-container'>
-              Handling selected filters is left up to you. These filter chips are just provided as an example.
+              Handling selected filters is left up to you. These filter chips are provided as an example but are not distributed with the filter-suggest package.
             </div>
           )}
         </div>

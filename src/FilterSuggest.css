@@ -5,6 +5,10 @@
   -webkit-appearance: none;
 }
 
+.fs-search-text-field {
+  width: 100%;
+}
+
 .fs-filter-menu {
   padding: 0px;
   margin-top: 0px;

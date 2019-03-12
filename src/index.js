@@ -14,67 +14,47 @@ import '@material/react-text-field/dist/text-field.css'
 import '@rmwc/circular-progress/circular-progress.css'
 import './FilterSuggest.css'
 
-const getFilterTypes = (filterIds, inputValue) => {
-  const cleanValue = inputValue.trim()
-  const idx = filterIds.indexOf(cleanValue.split(':')[0])
-  if (idx !== -1 && cleanValue.indexOf(`${filterIds[idx]}:`) === 0) {
-    return [filterIds[idx]]
-  }
-  return filterIds
-}
-
 class FilterSuggest extends Component {
-  stringify = item => {
+  stringifySelection = item => {
     if (!item) return
-    return item.complete ? '' : item.query
+    const val = item.label || item.value
+    if (val) return
+    const { prefix } = this.props.meta(item.filterType)
+    if (prefix) return `${prefix}:`
+    return
   }
-  getOptionMatches = ({ id, icon, staticValues }, inputValue) => {
-    if (!inputValue) return []
-    if (this.props.showPrefix && inputValue === ':') return [{
-      query: `${id}:`,
-      icon,
-      complete: false,
-      suggestions: ((staticValues || []).join(', ') || 'type for suggestions'),
-    }]
-    const isLongerThanPrefix = inputValue.length > (`${id}:`).length
-    const prefixValues = isLongerThanPrefix ? (staticValues || []).map(v => `${id}:${v}`) : [`${id}:`]
-    const prefixValueMatches = prefixValues.filter(x => x.toLowerCase().indexOf(inputValue.toLowerCase()) === 0)
-    const valuesMatches = (staticValues || []).filter(x => x.toLowerCase().indexOf(inputValue.toLowerCase()) > -1).map(v => `${id}:${v}`)
-    const allMatches = [
-      ...(this.props.showPrefix ? prefixValueMatches : []),
-      ...valuesMatches,
-    ]
-    return allMatches.map(query => ({
-      id: query,
-      filterType: id,
-      value: query.substr(id.length + 1),
-      query: this.props.showPrefix ? query : query.substr(id.length + 1),
-      icon,
-      complete: query !== `${id}:`,
-      suggestions: query === `${id}:` ? ((staticValues || []).join(', ') || 'type for suggestions') : `Filter by ${id}`,
-    }))
+  matches = (str, target, prefixOnly=false) => {
+    const index = target.toLowerCase().indexOf(str.toLowerCase())
+    return prefixOnly ? (
+      index === 0
+    ) : (
+      index > -1
+    )
   }
-  getDropdownItems = inputValue => {
-    return this.props.filterTypes.reduce((agg, filterType) => ([
-      ...agg,
-      ...this.getOptionMatches(filterType, inputValue),
-    ]), [])
+  getItems = () => {
+    const matchingItems = this.props.options.reduce((agg, x) => {
+      if (x.conditional) {
+        const doesMatch = this.matches(this.props.inputValue, x.label || x.value)
+        if (!doesMatch) {
+          return agg
+        }
+      }
+      return [...agg, x]
+    }, [])
+    return matchingItems.slice(0, this.props.maxSuggestions)
   }
   render() {
-    const dropdownItems = [
-      ...this.getDropdownItems(this.props.inputValue),
-      ...this.props.controlledItems,
-    ].slice(0, this.props.maxSuggestions)
+    const items = this.getItems()
     return (
       <Downshift
         selectedItem={null}
         inputValue={this.props.inputValue}
         onInputValueChange={x => this.props.onInputValueChange(x || '')}
-        itemToString={this.stringify}
+        itemToString={this.stringifySelection}
         defaultHighlightedIndex={0}
         onStateChange={(changes, downshift) => {
           if (changes.hasOwnProperty('selectedItem')) {
-            if (changes.selectedItem.complete) {
+            if (changes.selectedItem.value) {
               return this.props.onSelect(changes.selectedItem)
             }
             return downshift.openMenu()
@@ -99,10 +79,10 @@ class FilterSuggest extends Component {
         }) => (
           <div>
             <TextField
+              className='fs-search-text-field'
               label={typeof this.props.label === 'undefined' ? (
-                `Search by ${getFilterTypes(this.props.filterTypes.map(x => x.id), inputValue).join(', ')}...`
+                'Start typing to search filters...'
               ) : this.props.label}
-              style={{ width: '100%' }}
               trailingIcon={this.props.loading ? <CircularProgress /> : undefined}
             >
               <Input
@@ -112,7 +92,7 @@ class FilterSuggest extends Component {
                 data-lpignore={true}
               />
             </TextField>
-            {isOpen && dropdownItems.length > 0 ? (
+            {isOpen && items.length > 0 ? (
               <div
                 style={{ position: 'relative', }}
               >
@@ -127,16 +107,21 @@ class FilterSuggest extends Component {
                     handleSelect={(selectedIndex) => setHighlightedIndex(selectedIndex)}
                   >
                     {
-                      dropdownItems.map((item, index) => (
-                        <ListItem
-                          {...getItemProps({ item })}
-                          key={index}
-                        >
-                          {item.icon ? <ListItemGraphic graphic={item.icon} /> : <span />}
-                          <ListItemText primaryText={item.query} secondaryText={item.suggestions ? item.suggestions : ' '} />
-                          <ListItemMeta meta={highlightedIndex === index && item.query !== inputValue ? 'Enter' : ' '}/>
-                        </ListItem>
-                      ))
+                      items.map((item, index) => {
+                        const { prefix, icon, prompt } = this.props.meta(item.filterType)
+                        const val = item.label || item.value
+                        const query = prefix ? `${prefix}:${val}` : val
+                        return (
+                          <ListItem
+                            {...getItemProps({ item })}
+                            key={item.id}
+                          >
+                            {icon ? <ListItemGraphic graphic={icon} /> : <span />}
+                            <ListItemText primaryText={query} secondaryText={prompt || ' '} />
+                            <ListItemMeta meta={highlightedIndex === index && query !== inputValue ? 'Enter' : ' '}/>
+                          </ListItem>
+                        )
+                      })
                     }
                   </List>
                 </div>
@@ -149,24 +134,28 @@ class FilterSuggest extends Component {
   }
 }
 FilterSuggest.propTypes = {
-  controlledItems: PropTypes.array,
-  filterTypes: PropTypes.arrayOf(PropTypes.shape({
-    id: PropTypes.string.isRequired,
-    icon: PropTypes.element,
-    staticValues: PropTypes.arrayOf(PropTypes.string),
-  })).isRequired,
+  meta: PropTypes.func,
   inputValue: PropTypes.string.isRequired,
   label: PropTypes.string,
   loading: PropTypes.bool,
   maxSuggestions: PropTypes.number,
   onInputValueChange: PropTypes.func.isRequired,
   onSelect: PropTypes.func.isRequired,
-  showPrefix: PropTypes.bool,
+  options: PropTypes.arrayOf(PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    filterType: PropTypes.string.isRequired,
+    value: PropTypes.string.isRequired,
+    label: PropTypes.string,
+    conditional: PropTypes.bool.isRequired,
+  })).isRequired,
 }
 FilterSuggest.defaultProps = {
-  controlledItems: [],
+  meta: filterType => ({
+    prefix: filterType,
+    icon: null,
+    prompt: `Filter by ${filterType}`,
+  }),
   maxSuggestions: 12,
-  showPrefix: true,
 }
 
 export default FilterSuggest
