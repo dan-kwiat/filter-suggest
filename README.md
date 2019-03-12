@@ -15,8 +15,6 @@
 
 * [Demo](#demo)
 * [Examples](#examples)
-  * [Synchronous](#synchronous)
-  * [Asynchronous](#asynchronous)
 * [Docs](#docs)
 
 
@@ -41,45 +39,8 @@ npm install --save filter-suggest
 
 ## Examples
 
-### Synchronous
+* [Demo Source Code](./demo/src)
 
-```jsx
-import React, { Component } from 'react'
-import FilterSuggest from 'filter-suggest'
-
-const filterTypes = [
-  {
-    id: 'size',
-    icon: null,
-    staticValues: ['miniscule', 'tiny', 'small', 'medium', 'large', 'massive', 'humongous'],
-  },
-  {
-    id: 'is',
-    icon: null,
-    staticValues: ['read', 'unread', 'spam'],
-  },
-]
-
-class Demo extends Component {
-  state = {
-    inputValue: '',
-  }
-  render() {
-    return (
-      <FilterSuggest
-        filterTypes={filterTypes}
-        inputValue={this.state.inputValue}
-        onInputValueChange={inputValue => this.setState({ inputValue })}
-        onSelect={x => console.log(x)}
-      />
-    )
-  }
-}
-```
-
-### Asynchronous
-
-Coming soon
 
 ## Docs
 
