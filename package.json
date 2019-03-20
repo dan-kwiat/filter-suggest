@@ -63,6 +63,9 @@
     "filter",
     "query",
     "dropdown",
-    "prefix"
+    "prefix",
+    "suggest",
+    "suggester",
+    "auto"
   ]
 }
