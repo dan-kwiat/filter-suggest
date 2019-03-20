@@ -15,10 +15,12 @@ import '@rmwc/circular-progress/circular-progress.css'
 import './filter-suggest.css'
 
 const FilterSuggest = ({
+  textFieldClassName,
   inputValue,
   label,
   loading,
   maxSuggestions,
+  menuClassName,
   onInputValueChange,
   onSelect,
   items,
@@ -57,7 +59,7 @@ const FilterSuggest = ({
       }) => (
         <div>
           <TextField
-            className='fs-search-text-field'
+            className={`fs-search-text-field ${textFieldClassName}`}
             label={label}
             trailingIcon={loading ? <CircularProgress /> : undefined}
           >
@@ -74,7 +76,7 @@ const FilterSuggest = ({
             >
               <div
                 {...getMenuProps()}
-                className='fs-filter-menu'
+                className={`fs-filter-menu ${menuClassName}`}
               >
                 <List
                   twoLine
@@ -104,10 +106,12 @@ const FilterSuggest = ({
   )
 }
 FilterSuggest.propTypes = {
+  textFieldClassName: PropTypes.string,
   inputValue: PropTypes.string.isRequired,
   label: PropTypes.string,
   loading: PropTypes.bool,
   maxSuggestions: PropTypes.number,
+  menuClassName: PropTypes.string,
   onInputValueChange: PropTypes.func.isRequired,
   onSelect: PropTypes.func.isRequired,
   items: PropTypes.arrayOf(PropTypes.shape({
