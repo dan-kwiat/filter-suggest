@@ -29,7 +29,7 @@ const FilterSuggest = ({
       selectedItem={null}
       inputValue={inputValue}
       onInputValueChange={x => onInputValueChange(x || '')}
-      itemToString={item => item.primary}
+      itemToString={item => item ? item.primary : ''}
       defaultHighlightedIndex={0}
       onStateChange={(changes, downshift) => {
         if (changes.hasOwnProperty('selectedItem')) {
@@ -115,8 +115,8 @@ FilterSuggest.propTypes = {
   onSelect: PropTypes.func.isRequired,
   options: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.string.isRequired,
-    primary: PropTypes.string.isRequired,
     icon: PropTypes.element,
+    primary: PropTypes.string.isRequired,
     secondary: PropTypes.string,
   })).isRequired,
 }
