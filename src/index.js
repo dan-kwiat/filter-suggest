@@ -19,8 +19,7 @@ class FilterSuggest extends Component {
     if (!item) return
     const val = item.label || item.value
     if (val) return
-    const { prefix } = this.props.meta(item.filterType)
-    if (prefix) return `${prefix}:`
+    if (item.prefix) return `${item.prefix}:`
     return
   }
   matches = (str, target, prefixOnly=false) => {
@@ -108,16 +107,15 @@ class FilterSuggest extends Component {
                   >
                     {
                       items.map((item, index) => {
-                        const { prefix, icon, prompt } = this.props.meta(item.filterType)
                         const val = item.label || item.value
-                        const query = prefix ? `${prefix}:${val}` : val
+                        const query = item.prefix ? `${item.prefix}:${val}` : val
                         return (
                           <ListItem
                             {...getItemProps({ item })}
                             key={item.id}
                           >
-                            {icon ? <ListItemGraphic graphic={icon} /> : <span />}
-                            <ListItemText primaryText={query} secondaryText={prompt || ' '} />
+                            {item.icon ? <ListItemGraphic graphic={item.icon} /> : <span />}
+                            <ListItemText primaryText={query} secondaryText={item.prompt || ' '} />
                             <ListItemMeta meta={highlightedIndex === index ? 'Enter' : ' '}/>
                           </ListItem>
                         )
@@ -134,7 +132,6 @@ class FilterSuggest extends Component {
   }
 }
 FilterSuggest.propTypes = {
-  meta: PropTypes.func,
   inputValue: PropTypes.string.isRequired,
   label: PropTypes.string,
   loading: PropTypes.bool,
@@ -147,14 +144,12 @@ FilterSuggest.propTypes = {
     value: PropTypes.string.isRequired,
     label: PropTypes.string,
     conditional: PropTypes.bool.isRequired,
+    icon: PropTypes.element,
+    prefix: PropTypes.string,
+    prompt: PropTypes.string,
   })).isRequired,
 }
 FilterSuggest.defaultProps = {
-  meta: filterType => ({
-    prefix: filterType,
-    icon: null,
-    prompt: `Filter by ${filterType}`,
-  }),
   maxSuggestions: 12,
 }
 

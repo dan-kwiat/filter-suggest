@@ -28,15 +28,17 @@ class Demo extends Component {
           <div className='margin-container'>
             <FilterSuggest
               inputValue={this.state.inputValue}
+              label='Filter by genre, actor, film...'
               onInputValueChange={inputValue => this.setState({ inputValue })}
               onSelect={x => this.setState(s => {
                 console.log(x)
                 const filterSet = new Set([...s.selectedFilters, x.id])
                 return { selectedFilters: Array.from(filterSet) }
               })}
-              options={filterOptions}
-              meta={getFiltersMeta}
-              label='Filter by genre, actor, film...'
+              options={filterOptions.map(x => ({
+                ...x,
+                ...getFiltersMeta(x.filterType),
+              }))}
             />
           </div>
           <Chips
