@@ -14,14 +14,6 @@ import '@material/react-text-field/dist/text-field.css'
 import '@rmwc/circular-progress/circular-progress.css'
 import './filter-suggest.css'
 
-const stringifySelection = item => {
-  if (!item) return
-  const val = item.label || item.value
-  if (val) return
-  if (item.prefix) return `${item.prefix}:`
-  return
-}
-
 const FilterSuggest = ({
   inputValue,
   label,
@@ -37,7 +29,7 @@ const FilterSuggest = ({
       selectedItem={null}
       inputValue={inputValue}
       onInputValueChange={x => onInputValueChange(x || '')}
-      itemToString={stringifySelection}
+      itemToString={item => item.label || item.value}
       defaultHighlightedIndex={0}
       onStateChange={(changes, downshift) => {
         if (changes.hasOwnProperty('selectedItem')) {
@@ -67,9 +59,7 @@ const FilterSuggest = ({
         <div>
           <TextField
             className='fs-search-text-field'
-            label={typeof label === 'undefined' ? (
-              'Start typing to search filters...'
-            ) : label}
+            label={label}
             trailingIcon={loading ? <CircularProgress /> : undefined}
           >
             <Input
@@ -136,6 +126,7 @@ FilterSuggest.propTypes = {
   })).isRequired,
 }
 FilterSuggest.defaultProps = {
+  label: 'Start typing to search filters...',
   maxSuggestions: 12,
 }
 

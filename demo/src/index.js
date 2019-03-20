@@ -49,6 +49,7 @@ const Demo = () => {
             onInputValueChange={setInputValue}
             onSelect={x => {
               console.log(x)
+              setInputValue('')
               setSelectedFilters(Array.from(
                 new Set([...selectedFilters, x.id])
               ))
