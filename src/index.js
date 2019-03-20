@@ -85,15 +85,13 @@ const FilterSuggest = ({
                 >
                   {
                     items.map((item, index) => {
-                      const val = item.primary
-                      const query = item.prefix ? `${item.prefix}:${val}` : val
                       return (
                         <ListItem
                           {...getItemProps({ item })}
                           key={item.id}
                         >
                           {item.icon ? <ListItemGraphic graphic={item.icon} /> : <span />}
-                          <ListItemText primaryText={query} secondaryText={item.prompt || ' '} />
+                          <ListItemText primaryText={item.primary} secondaryText={item.prompt || ' '} />
                           <ListItemMeta meta={highlightedIndex === index ? 'Enter' : ' '}/>
                         </ListItem>
                       )
@@ -119,7 +117,6 @@ FilterSuggest.propTypes = {
     id: PropTypes.string.isRequired,
     primary: PropTypes.string.isRequired,
     icon: PropTypes.element,
-    prefix: PropTypes.string,
     prompt: PropTypes.string,
   })).isRequired,
 }
