@@ -19,7 +19,9 @@ const Chips = ({ labels, setLabels }) => (
           key={label}
           label={label.split('-').slice(2).join('-')}
           title={label.split('-').slice(2).join('-')}
-          leadingIcon={getFiltersMeta(label.split('-')[0]).icon}
+          leadingIcon={getFiltersMeta({
+            filterType: label.split('-')[0]
+          }).icon}
           removeIcon={<MaterialIcon icon='cancel' />}
         />
       )}

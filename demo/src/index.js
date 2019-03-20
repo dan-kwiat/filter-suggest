@@ -11,17 +11,31 @@ import './demo.css'
 
 const OPTIONS = filterOptions.map(x => ({
   ...x,
-  ...getFiltersMeta(x.filterType),
+  ...getFiltersMeta(x),
 }))
+
+const getSearchOption = inputValue => ({
+  id: `search-0-${inputValue}`,
+  filterType: 'search',
+  value: inputValue,
+  label: null,
+  ...getFiltersMeta({
+    filterType: 'search',
+    value: inputValue,
+  })
+})
 
 const Demo = () => {
   const [inputValue, setInputValue] = useState('')
   const [selectedFilters, setSelectedFilters] = useState([])
-  const filteredOptions = inputValue ? matchSorter(
-    OPTIONS,
-    inputValue,
-    { keys: ['value', 'label'] }
-  ) : []
+  const filteredOptions = inputValue ? [
+    getSearchOption(inputValue),
+    ...matchSorter(
+      OPTIONS,
+      inputValue,
+      { keys: ['value', 'label'] }
+    ),
+  ] : []
   return (
     <div className='demo'>
       <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
