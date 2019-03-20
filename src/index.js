@@ -12,156 +12,118 @@ import { CircularProgress } from '@rmwc/circular-progress'
 import '@material/react-list/dist/list.css'
 import '@material/react-text-field/dist/text-field.css'
 import '@rmwc/circular-progress/circular-progress.css'
-import './FilterSuggest.css'
+import './filter-suggest.css'
 
-const getFilterTypes = (filterIds, inputValue) => {
-  const cleanValue = inputValue.trim()
-  const idx = filterIds.indexOf(cleanValue.split(':')[0])
-  if (idx !== -1 && cleanValue.indexOf(`${filterIds[idx]}:`) === 0) {
-    return [filterIds[idx]]
-  }
-  return filterIds
-}
-
-class FilterSuggest extends Component {
-  stringify = item => {
-    if (!item) return
-    return item.complete ? '' : item.query
-  }
-  getOptionMatches = ({ id, icon, staticValues }, inputValue) => {
-    if (!inputValue) return []
-    if (inputValue === ':') return [{
-      query: `${id}:`,
-      icon,
-      complete: false,
-      suggestions: ((staticValues || []).join(', ') || 'type for suggestions'),
-    }]
-    const isLongerThanPrefix = inputValue.length > (`${id}:`).length
-    const prefixValues = isLongerThanPrefix ? (staticValues || []).map(v => `${id}:${v}`) : [`${id}:`]
-    const prefixValueMatches = prefixValues.filter(x => x.toLowerCase().indexOf(inputValue.toLowerCase()) === 0)
-    const valuesMatches = (staticValues || []).filter(x => x.toLowerCase().indexOf(inputValue.toLowerCase()) === 0).map(v => `${id}:${v}`)
-    const allMatches = [
-      ...prefixValueMatches,
-      ...valuesMatches,
-    ]
-    return allMatches.map(query => ({
-      filterType: id,
-      value: query.substr(id.length + 1),
-      query,
-      icon,
-      complete: query !== `${id}:`,
-      suggestions: query === `${id}:` ? ((staticValues || []).join(', ') || 'type for suggestions') : null,
-    }))
-  }
-  getDropdownItems = inputValue => {
-    return this.props.filterTypes.reduce((agg, filterType) => ([
-      ...agg,
-      ...this.getOptionMatches(filterType, inputValue),
-    ]), [])
-  }
-  render() {
-    const dropdownItems = [
-      ...this.getDropdownItems(this.props.inputValue),
-      ...this.props.controlledItems,
-    ]
-    return (
-      <Downshift
-        selectedItem={null}
-        inputValue={this.props.inputValue}
-        onInputValueChange={x => this.props.onInputValueChange(x || '')}
-        itemToString={this.stringify}
-        defaultHighlightedIndex={0}
-        onStateChange={(changes, downshift) => {
-          if (changes.hasOwnProperty('selectedItem')) {
-            if (changes.selectedItem.complete) {
-              return this.props.onSelect(changes.selectedItem)
-            }
-            return downshift.openMenu()
+const FilterSuggest = ({
+  textFieldClassName,
+  inputValue,
+  label,
+  loading,
+  maxSuggestions,
+  menuClassName,
+  onInputValueChange,
+  onSelect,
+  items,
+}) => {
+  return (
+    <Downshift
+      selectedItem={null}
+      inputValue={inputValue}
+      onInputValueChange={x => onInputValueChange(x || '')}
+      itemToString={item => item ? item.primary : ''}
+      defaultHighlightedIndex={0}
+      onStateChange={(changes, downshift) => {
+        if (changes.hasOwnProperty('selectedItem')) {
+          if (changes.selectedItem.primary) {
+            return onSelect(changes.selectedItem)
           }
-          if (changes.type === Downshift.stateChangeTypes.changeInput) {
-            if (downshift.highlightedIndex !== 0) {
-              downshift.setHighlightedIndex(0)
-            }
+          return downshift.openMenu()
+        }
+        if (changes.type === Downshift.stateChangeTypes.changeInput) {
+          if (downshift.highlightedIndex !== 0) {
+            downshift.setHighlightedIndex(0)
           }
-        }}
-      >
-        {({
-          getInputProps,
-          getItemProps,
-          getLabelProps,
-          getMenuProps,
-          isOpen,
-          inputValue,
-          highlightedIndex,
-          setHighlightedIndex,
-          selectedItem,
-        }) => (
-          <div>
-            <TextField
-              label={typeof this.props.label === 'undefined' ? (
-                `Search by ${getFilterTypes(this.props.filterTypes.map(x => x.id), inputValue).join(', ')}...`
-              ) : this.props.label}
-              style={{ width: '100%' }}
-              trailingIcon={this.props.loading ? <CircularProgress /> : undefined}
+        }
+      }}
+    >
+      {({
+        getInputProps,
+        getItemProps,
+        getLabelProps,
+        getMenuProps,
+        isOpen,
+        inputValue,
+        highlightedIndex,
+        setHighlightedIndex,
+        selectedItem,
+      }) => (
+        <div>
+          <TextField
+            className={`fs-search-text-field ${textFieldClassName}`}
+            label={label}
+            trailingIcon={loading ? <CircularProgress /> : undefined}
+          >
+            <Input
+              {...getInputProps()}
+              className='fs-search-input'
+              type='search'
+              data-lpignore={true}
+            />
+          </TextField>
+          {isOpen && items.length > 0 ? (
+            <div
+              style={{ position: 'relative', }}
             >
-              <Input
-                {...getInputProps()}
-                className='fs-search-input'
-                type='search'
-                data-lpignore={true}
-              />
-            </TextField>
-            {isOpen && dropdownItems.length > 0 ? (
               <div
-                style={{ position: 'relative', }}
+                {...getMenuProps()}
+                className={`fs-filter-menu ${menuClassName}`}
               >
-                <div
-                  {...getMenuProps()}
-                  className='fs-filter-menu'
+                <List
+                  twoLine
+                  singleSelection
+                  selectedIndex={highlightedIndex}
+                  handleSelect={(selectedIndex) => setHighlightedIndex(selectedIndex)}
                 >
-                  <List
-                    twoLine
-                    singleSelection
-                    selectedIndex={highlightedIndex}
-                    handleSelect={(selectedIndex) => setHighlightedIndex(selectedIndex)}
-                  >
-                    {
-                      dropdownItems.map((item, index) => (
-                        <ListItem
-                          {...getItemProps({ item })}
-                          key={index}
-                        >
-                          {item.icon ? <ListItemGraphic graphic={item.icon} /> : <span />}
-                          <ListItemText primaryText={item.query} secondaryText={item.suggestions ? item.suggestions : ' '} />
-                          <ListItemMeta meta={highlightedIndex === index && item.query !== inputValue ? 'Enter' : ' '}/>
-                        </ListItem>
-                      ))
-                    }
-                  </List>
-                </div>
+                  {items.slice(0, maxSuggestions).map((item, index) => {
+                    return (
+                      <ListItem
+                        {...getItemProps({ item })}
+                        key={item.id}
+                      >
+                        {item.icon ? <ListItemGraphic graphic={item.icon} /> : <span />}
+                        <ListItemText primaryText={item.primary} secondaryText={item.secondary || ' '} />
+                        <ListItemMeta meta={highlightedIndex === index ? 'Enter' : ' '}/>
+                      </ListItem>
+                    )
+                  })}
+                </List>
               </div>
-            ) : null}
-          </div>
-        )}
-      </Downshift>
-    )
-  }
+            </div>
+          ) : null}
+        </div>
+      )}
+    </Downshift>
+  )
 }
 FilterSuggest.propTypes = {
-  controlledItems: PropTypes.array,
-  filterTypes: PropTypes.arrayOf(PropTypes.shape({
-    id: PropTypes.string.isRequired,
-    icon: PropTypes.element,
-    staticValues: PropTypes.arrayOf(PropTypes.string),
-  })).isRequired,
+  textFieldClassName: PropTypes.string,
   inputValue: PropTypes.string.isRequired,
   label: PropTypes.string,
   loading: PropTypes.bool,
+  maxSuggestions: PropTypes.number,
+  menuClassName: PropTypes.string,
   onInputValueChange: PropTypes.func.isRequired,
   onSelect: PropTypes.func.isRequired,
+  items: PropTypes.arrayOf(PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    icon: PropTypes.element,
+    primary: PropTypes.string.isRequired,
+    secondary: PropTypes.string,
+  })).isRequired,
 }
 FilterSuggest.defaultProps = {
-  controlledItems: [],
+  label: 'Start typing...',
+  maxSuggestions: 12,
 }
 
 export default FilterSuggest

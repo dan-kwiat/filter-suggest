@@ -5,6 +5,10 @@
   -webkit-appearance: none;
 }
 
+.fs-search-text-field {
+  width: 100%;
+}
+
 .fs-filter-menu {
   padding: 0px;
   margin-top: 0px;
@@ -25,5 +29,5 @@
   border-bottom-width: 1px;
   border-left-width: 1px;
   border-style: none;
-  z-index: 1;
+  z-index: 999;
 }
