@@ -22,28 +22,8 @@ class FilterSuggest extends Component {
     if (item.prefix) return `${item.prefix}:`
     return
   }
-  matches = (str, target, prefixOnly=false) => {
-    const index = target.toLowerCase().indexOf(str.toLowerCase())
-    return prefixOnly ? (
-      index === 0
-    ) : (
-      index > -1
-    )
-  }
-  getItems = () => {
-    const matchingItems = this.props.options.reduce((agg, x) => {
-      if (x.conditional) {
-        const doesMatch = this.matches(this.props.inputValue, x.label || x.value)
-        if (!doesMatch) {
-          return agg
-        }
-      }
-      return [...agg, x]
-    }, [])
-    return matchingItems.slice(0, this.props.maxSuggestions)
-  }
   render() {
-    const items = this.getItems()
+    const items = this.props.options.slice(0, this.props.maxSuggestions)
     return (
       <Downshift
         selectedItem={null}
@@ -143,7 +123,6 @@ FilterSuggest.propTypes = {
     filterType: PropTypes.string.isRequired,
     value: PropTypes.string.isRequired,
     label: PropTypes.string,
-    conditional: PropTypes.bool.isRequired,
     icon: PropTypes.element,
     prefix: PropTypes.string,
     prompt: PropTypes.string,
