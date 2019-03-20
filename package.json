@@ -25,19 +25,21 @@
     "@material/react-list": "^0.9.0",
     "@material/react-text-field": "^0.9.0",
     "@rmwc/circular-progress": "^4.0.6",
-    "downshift": "^3.1.13",
-    "prop-types": "^15.6.2"
+    "downshift": "^3.1.13"
   },
   "peerDependencies": {
-    "react": "16.x"
+    "react": "16.x",
+    "react-dom": "16.x",
+    "prop-types": "15.x"
   },
   "devDependencies": {
     "@material/react-chips": "^0.9.0",
     "@material/react-material-icon": "^0.9.0",
     "gh-pages": "^2.0.1",
     "nwb": "0.23.x",
-    "react": "^16.7.0",
-    "react-dom": "^16.7.0"
+    "prop-types": "^15.7.2",
+    "react": "^16.8.4",
+    "react-dom": "^16.8.4"
   },
   "author": {
     "name": "Dan Kwiatkowski",

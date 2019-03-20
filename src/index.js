@@ -14,102 +14,109 @@ import '@material/react-text-field/dist/text-field.css'
 import '@rmwc/circular-progress/circular-progress.css'
 import './filter-suggest.css'
 
-class FilterSuggest extends Component {
-  stringifySelection = item => {
-    if (!item) return
-    const val = item.label || item.value
-    if (val) return
-    if (item.prefix) return `${item.prefix}:`
-    return
-  }
-  render() {
-    const items = this.props.options.slice(0, this.props.maxSuggestions)
-    return (
-      <Downshift
-        selectedItem={null}
-        inputValue={this.props.inputValue}
-        onInputValueChange={x => this.props.onInputValueChange(x || '')}
-        itemToString={this.stringifySelection}
-        defaultHighlightedIndex={0}
-        onStateChange={(changes, downshift) => {
-          if (changes.hasOwnProperty('selectedItem')) {
-            if (changes.selectedItem.value) {
-              return this.props.onSelect(changes.selectedItem)
-            }
-            return downshift.openMenu()
+const stringifySelection = item => {
+  if (!item) return
+  const val = item.label || item.value
+  if (val) return
+  if (item.prefix) return `${item.prefix}:`
+  return
+}
+
+const FilterSuggest = ({
+  inputValue,
+  label,
+  loading,
+  maxSuggestions,
+  onInputValueChange,
+  onSelect,
+  options,
+}) => {
+  const items = options.slice(0, maxSuggestions)
+  return (
+    <Downshift
+      selectedItem={null}
+      inputValue={inputValue}
+      onInputValueChange={x => onInputValueChange(x || '')}
+      itemToString={stringifySelection}
+      defaultHighlightedIndex={0}
+      onStateChange={(changes, downshift) => {
+        if (changes.hasOwnProperty('selectedItem')) {
+          if (changes.selectedItem.value) {
+            return onSelect(changes.selectedItem)
           }
-          if (changes.type === Downshift.stateChangeTypes.changeInput) {
-            if (downshift.highlightedIndex !== 0) {
-              downshift.setHighlightedIndex(0)
-            }
+          return downshift.openMenu()
+        }
+        if (changes.type === Downshift.stateChangeTypes.changeInput) {
+          if (downshift.highlightedIndex !== 0) {
+            downshift.setHighlightedIndex(0)
           }
-        }}
-      >
-        {({
-          getInputProps,
-          getItemProps,
-          getLabelProps,
-          getMenuProps,
-          isOpen,
-          inputValue,
-          highlightedIndex,
-          setHighlightedIndex,
-          selectedItem,
-        }) => (
-          <div>
-            <TextField
-              className='fs-search-text-field'
-              label={typeof this.props.label === 'undefined' ? (
-                'Start typing to search filters...'
-              ) : this.props.label}
-              trailingIcon={this.props.loading ? <CircularProgress /> : undefined}
+        }
+      }}
+    >
+      {({
+        getInputProps,
+        getItemProps,
+        getLabelProps,
+        getMenuProps,
+        isOpen,
+        inputValue,
+        highlightedIndex,
+        setHighlightedIndex,
+        selectedItem,
+      }) => (
+        <div>
+          <TextField
+            className='fs-search-text-field'
+            label={typeof label === 'undefined' ? (
+              'Start typing to search filters...'
+            ) : label}
+            trailingIcon={loading ? <CircularProgress /> : undefined}
+          >
+            <Input
+              {...getInputProps()}
+              className='fs-search-input'
+              type='search'
+              data-lpignore={true}
+            />
+          </TextField>
+          {isOpen && items.length > 0 ? (
+            <div
+              style={{ position: 'relative', }}
             >
-              <Input
-                {...getInputProps()}
-                className='fs-search-input'
-                type='search'
-                data-lpignore={true}
-              />
-            </TextField>
-            {isOpen && items.length > 0 ? (
               <div
-                style={{ position: 'relative', }}
+                {...getMenuProps()}
+                className='fs-filter-menu'
               >
-                <div
-                  {...getMenuProps()}
-                  className='fs-filter-menu'
+                <List
+                  twoLine
+                  singleSelection
+                  selectedIndex={highlightedIndex}
+                  handleSelect={(selectedIndex) => setHighlightedIndex(selectedIndex)}
                 >
-                  <List
-                    twoLine
-                    singleSelection
-                    selectedIndex={highlightedIndex}
-                    handleSelect={(selectedIndex) => setHighlightedIndex(selectedIndex)}
-                  >
-                    {
-                      items.map((item, index) => {
-                        const val = item.label || item.value
-                        const query = item.prefix ? `${item.prefix}:${val}` : val
-                        return (
-                          <ListItem
-                            {...getItemProps({ item })}
-                            key={item.id}
-                          >
-                            {item.icon ? <ListItemGraphic graphic={item.icon} /> : <span />}
-                            <ListItemText primaryText={query} secondaryText={item.prompt || ' '} />
-                            <ListItemMeta meta={highlightedIndex === index ? 'Enter' : ' '}/>
-                          </ListItem>
-                        )
-                      })
-                    }
-                  </List>
-                </div>
+                  {
+                    items.map((item, index) => {
+                      const val = item.label || item.value
+                      const query = item.prefix ? `${item.prefix}:${val}` : val
+                      return (
+                        <ListItem
+                          {...getItemProps({ item })}
+                          key={item.id}
+                        >
+                          {item.icon ? <ListItemGraphic graphic={item.icon} /> : <span />}
+                          <ListItemText primaryText={query} secondaryText={item.prompt || ' '} />
+                          <ListItemMeta meta={highlightedIndex === index ? 'Enter' : ' '}/>
+                        </ListItem>
+                      )
+                    })
+                  }
+                </List>
               </div>
-            ) : null}
-          </div>
-        )}
-      </Downshift>
-    )
-  }
+            </div>
+          ) : null}
+        </div>
+      )}
+    </Downshift>
+  )
 }
 FilterSuggest.propTypes = {
   inputValue: PropTypes.string.isRequired,
