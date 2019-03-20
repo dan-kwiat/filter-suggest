@@ -17,11 +17,10 @@ const OPTIONS = filterOptions.map(x => ({
 const getSearchOption = inputValue => ({
   id: `search-0-${inputValue}`,
   filterType: 'search',
-  value: inputValue,
-  label: null,
+  primary: inputValue,
   ...getFiltersMeta({
     filterType: 'search',
-    value: inputValue,
+    primary: inputValue,
   })
 })
 
@@ -34,7 +33,7 @@ const Demo = () => {
       OPTIONS,
       inputValue,
       { keys: ['value', 'label'] }
-    ),
+    ).map(x => ({ ...x, primary: x.label || x.value })),
   ] : []
   return (
     <div className='demo'>

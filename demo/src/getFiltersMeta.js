@@ -1,13 +1,13 @@
 import React from 'react'
 import MaterialIcon from '@material/react-material-icon'
 
-const getFiltersMeta = ({ filterType, value, label }) => {
+const getFiltersMeta = ({ filterType, primary }) => {
   switch (filterType) {
     case 'search':
       return {
         prefix: null,
         icon: <MaterialIcon icon='search' />,
-        prompt: `Search for ${label || value}`,
+        prompt: `Search for ${primary}`,
       }
     case 'genre':
       return {

@@ -29,11 +29,11 @@ const FilterSuggest = ({
       selectedItem={null}
       inputValue={inputValue}
       onInputValueChange={x => onInputValueChange(x || '')}
-      itemToString={item => item.label || item.value}
+      itemToString={item => item.primary}
       defaultHighlightedIndex={0}
       onStateChange={(changes, downshift) => {
         if (changes.hasOwnProperty('selectedItem')) {
-          if (changes.selectedItem.value) {
+          if (changes.selectedItem.primary) {
             return onSelect(changes.selectedItem)
           }
           return downshift.openMenu()
@@ -85,7 +85,7 @@ const FilterSuggest = ({
                 >
                   {
                     items.map((item, index) => {
-                      const val = item.label || item.value
+                      const val = item.primary
                       const query = item.prefix ? `${item.prefix}:${val}` : val
                       return (
                         <ListItem
@@ -117,8 +117,7 @@ FilterSuggest.propTypes = {
   onSelect: PropTypes.func.isRequired,
   options: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.string.isRequired,
-    value: PropTypes.string.isRequired,
-    label: PropTypes.string,
+    primary: PropTypes.string.isRequired,
     icon: PropTypes.element,
     prefix: PropTypes.string,
     prompt: PropTypes.string,
