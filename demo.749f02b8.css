@@ -2076,6 +2076,10 @@ a.mdc-list-item {
   -webkit-appearance: none;
 }
 
+.fs-search-text-field {
+  width: 100%;
+}
+
 .fs-filter-menu {
   padding: 0px;
   margin-top: 0px;
@@ -2098,7 +2102,7 @@ a.mdc-list-item {
   border-bottom-width: 1px;
   border-left-width: 1px;
   border-style: none;
-  z-index: 1;
+  z-index: 999;
 }
 
 @-webkit-keyframes mdc-ripple-fg-radius-in {
@@ -2614,9 +2618,9 @@ body {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: start;
   color: rgba(255, 255, 255, 0.8);
 }
 
@@ -2652,4 +2656,4 @@ h1 {
 }
 
 
-/*# sourceMappingURL=demo.2fabbe49.css.map*/
+/*# sourceMappingURL=demo.749f02b8.css.map*/
