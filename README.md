@@ -157,7 +157,7 @@ class AsyncDemo extends Component {
               onSelect={item => {
                 // handle selected item
               }}
-              items={data ? data.getItems : []}
+              items={inputValue && data ? data.getItems : []}
             />
           )
         }}
