@@ -53,7 +53,7 @@ const Demo = () => {
                 new Set([...selectedFilters, x.id])
               ))
             }}
-            options={filteredOptions}
+            items={filteredOptions}
           />
         </div>
         <Chips

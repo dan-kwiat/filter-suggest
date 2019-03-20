@@ -21,9 +21,8 @@ const FilterSuggest = ({
   maxSuggestions,
   onInputValueChange,
   onSelect,
-  options,
+  items,
 }) => {
-  const items = options.slice(0, maxSuggestions)
   return (
     <Downshift
       selectedItem={null}
@@ -83,20 +82,18 @@ const FilterSuggest = ({
                   selectedIndex={highlightedIndex}
                   handleSelect={(selectedIndex) => setHighlightedIndex(selectedIndex)}
                 >
-                  {
-                    items.map((item, index) => {
-                      return (
-                        <ListItem
-                          {...getItemProps({ item })}
-                          key={item.id}
-                        >
-                          {item.icon ? <ListItemGraphic graphic={item.icon} /> : <span />}
-                          <ListItemText primaryText={item.primary} secondaryText={item.secondary || ' '} />
-                          <ListItemMeta meta={highlightedIndex === index ? 'Enter' : ' '}/>
-                        </ListItem>
-                      )
-                    })
-                  }
+                  {items.slice(0, maxSuggestions).map((item, index) => {
+                    return (
+                      <ListItem
+                        {...getItemProps({ item })}
+                        key={item.id}
+                      >
+                        {item.icon ? <ListItemGraphic graphic={item.icon} /> : <span />}
+                        <ListItemText primaryText={item.primary} secondaryText={item.secondary || ' '} />
+                        <ListItemMeta meta={highlightedIndex === index ? 'Enter' : ' '}/>
+                      </ListItem>
+                    )
+                  })}
                 </List>
               </div>
             </div>
@@ -113,7 +110,7 @@ FilterSuggest.propTypes = {
   maxSuggestions: PropTypes.number,
   onInputValueChange: PropTypes.func.isRequired,
   onSelect: PropTypes.func.isRequired,
-  options: PropTypes.arrayOf(PropTypes.shape({
+  items: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.string.isRequired,
     icon: PropTypes.element,
     primary: PropTypes.string.isRequired,
