@@ -41,11 +41,6 @@ const Demo = () => {
       <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
       <div className='content'>
         <h1>{`<FilterSuggest />`}</h1>
-        <div className='margin-container'>
-          <a href='https://github.com/dan-kwiat/filter-suggest/tree/master/demo'>
-            Source Code
-          </a>
-        </div>
         <h3>Synchronous Example (values stored in client)</h3>
         <div className='margin-container'>
           <FilterSuggest
@@ -70,6 +65,16 @@ const Demo = () => {
             Handling selected filters is left up to you. These filter chips are provided as an example but are not distributed with the filter-suggest package.
           </div>
         )}
+        <div className='margin-container'>
+          <a href='https://github.com/dan-kwiat/filter-suggest/tree/master/demo/src'>
+            Demo Source Code
+          </a>
+        </div>
+        <div className='margin-container'>
+          <a href='https://www.npmjs.com/package/filter-suggest'>
+            npmjs.com/package/filter-suggest
+          </a>
+        </div>
       </div>
     </div>
   )
