@@ -117,7 +117,6 @@ FilterSuggest.propTypes = {
   onSelect: PropTypes.func.isRequired,
   options: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.string.isRequired,
-    filterType: PropTypes.string.isRequired,
     value: PropTypes.string.isRequired,
     label: PropTypes.string,
     icon: PropTypes.element,
