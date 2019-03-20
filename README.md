@@ -19,7 +19,9 @@ Implemented using [downshift](http://npmjs.com/package/downshift) and [material-
 
 * [Demo](#demo)
 * [Installation](#installation)
-* [Example](#example)
+* [Examples](#examples)
+  * [Sync](#sync)
+  * [Async](#async)
 * [Props](#props)
 
 
@@ -52,7 +54,9 @@ You'll need to have the peer dependencies installed too:
 },
 ```
 
-## Example
+## Examples
+
+### Sync
 
 A basic synchronous example using [match-sorter](https://www.npmjs.com/package/match-sorter) to sort items:
 
@@ -92,8 +96,80 @@ const Demo = () => {
 }
 ```
 
-See the [demo source code](./demo/src) for a more comprehensive example.
+See the [demo source code](./demo/src) for a more comprehensive synchronous example.
 
+### Async
+
+A basic asynchronous example using a dummy GraphQL endpoint to fetch sorted items:
+
+```jsx
+import React, { Component } from 'react'
+import debounce from 'lodash.debounce'
+import gql from 'graphql-tag'
+import { Query } from 'react-apollo'
+import FilterSuggest from 'filter-suggest'
+
+const DEBOUNCE_TIME = 100
+const applyDebounced = debounce((f, x) => f(x), DEBOUNCE_TIME)
+
+const QUERY = gql`
+  query GET_ITEMS(
+    $search: String!
+  ) {
+    getItems(
+      search: $search
+    ) {
+      id
+      primary
+      secondary
+    }
+  }
+`
+
+class AsyncDemo extends Component {
+  state = {
+    inputValue: '',
+    variables: {
+      search: '',
+    }
+  }
+  setInputValue = inputValue => {
+    this.setState({ inputValue })
+  }
+  setVariables = variables => {
+    this.setState({ variables })
+  }
+  onInputValueChange = value => {
+    this.setInputValue(value)
+    applyDebounced(this.setVariables, { search: value })
+  }
+  render() {
+    const { inputValue, variables } = this.state
+    return (
+      <Query query={QUERY} variables={variables}>
+        {({ data, loading, error }) => {
+          return (
+            <FilterSuggest
+              inputValue={inputValue}
+              label='Search async'
+              loading={loading}
+              onInputValueChange={this.onInputValueChange}
+              onSelect={item => {
+                // handle selected item
+              }}
+              items={data ? data.getItems : []}
+            />
+          )
+        }}
+      </Query>
+    )
+  }
+}
+```
+
+For a seamless search-as-you-type experience, results should be returned very quickly (say of the order 100ms).  You might want to look at [Elasticsearch completion suggester](https://www.elastic.co/guide/en/elasticsearch/reference/current/search-suggesters-completion.html) or [PostgreSQL trigram indices](https://www.postgresql.org/docs/current/pgtrgm.html).
+
+See [charity-base-search](https://www.npmjs.com/package/charity-base-search) for a real-world asynchronous example.
 
 ## Props
 
