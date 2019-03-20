@@ -17,8 +17,8 @@ const Chips = ({ labels, setLabels }) => (
           className='filter-chip'
           id={label}
           key={label}
-          label={label.split('-').slice(1).join('-')}
-          title={label.split('-').slice(1).join('-')}
+          label={label.split('-').slice(2).join('-')}
+          title={label.split('-').slice(2).join('-')}
           leadingIcon={getFiltersMeta(label.split('-')[0]).icon}
           removeIcon={<MaterialIcon icon='cancel' />}
         />
