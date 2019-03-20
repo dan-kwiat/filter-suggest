@@ -91,7 +91,7 @@ const FilterSuggest = ({
                           key={item.id}
                         >
                           {item.icon ? <ListItemGraphic graphic={item.icon} /> : <span />}
-                          <ListItemText primaryText={item.primary} secondaryText={item.prompt || ' '} />
+                          <ListItemText primaryText={item.primary} secondaryText={item.secondary || ' '} />
                           <ListItemMeta meta={highlightedIndex === index ? 'Enter' : ' '}/>
                         </ListItem>
                       )
@@ -117,7 +117,7 @@ FilterSuggest.propTypes = {
     id: PropTypes.string.isRequired,
     primary: PropTypes.string.isRequired,
     icon: PropTypes.element,
-    prompt: PropTypes.string,
+    secondary: PropTypes.string,
   })).isRequired,
 }
 FilterSuggest.defaultProps = {

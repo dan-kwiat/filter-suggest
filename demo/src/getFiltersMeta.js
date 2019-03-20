@@ -6,22 +6,22 @@ const getFiltersMeta = ({ filterType, primary }) => {
     case 'search':
       return {
         icon: <MaterialIcon icon='search' />,
-        prompt: `Search for ${primary}`,
+        secondary: `Search for ${primary}`,
       }
     case 'genre':
       return {
         icon: <MaterialIcon icon='category' />,
-        prompt: 'Filter by genre',
+        secondary: 'Filter by genre',
       }
     case 'actor':
       return {
         icon: <MaterialIcon icon='person' />,
-        prompt: 'Filter by actor',
+        secondary: 'Filter by actor',
       }
     case 'movie':
       return {
         icon: <MaterialIcon icon='movie' />,
-        prompt: 'Filter by film',
+        secondary: 'Filter by film',
       }
     default:
       return {}
