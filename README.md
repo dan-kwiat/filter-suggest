@@ -14,8 +14,9 @@
 [coveralls]: https://coveralls.io/github/user/repo
 
 * [Demo](#demo)
-* [Examples](#examples)
-* [Docs](#docs)
+* [Installation](#installation)
+* [Example](#example)
+* [Props](#props)
 
 
 ## Demo
@@ -37,11 +38,94 @@ Or npm:
 npm install --save filter-suggest
 ```
 
-## Examples
+You'll need to have the peer dependencies installed too:
 
-* [Demo Source Code](./demo/src)
+```json
+{
+  "prop-types": "15.x",
+  "react": "16.x",
+  "react-dom": "16.x"
+},
+```
+
+## Example
+
+```jsx
+import React, { useState } from 'react'
+import FilterSuggest from 'filter-suggest'
+import matchSorter from 'match-sorter'
+
+const ITEMS = [
+  {
+    id: `movie-1`,
+    icon: null,
+    primary: 'movie:The Big Short',
+    secondary: 'Filter by movie',
+  },
+  // add more items here
+]
+
+const Demo = () => {
+  const [inputValue, setInputValue] = useState('')
+  const sortedItems = inputValue ? matchSorter(
+    ITEMS,
+    inputValue,
+    { keys: ['primary'] }
+  ) : []
+  return (
+    <FilterSuggest
+      inputValue={inputValue}
+      label='Start typing...'
+      onInputValueChange={setInputValue}
+      onSelect={item => {
+        // deal with selected item here
+      }}
+      items={sortedItems}
+    />
+  )
+}
+```
+
+See the [demo source code](./demo/src) for a more comprehensive example.
 
 
-## Docs
+## Props
 
-Coming soon
+FilterSuggest accepts the following props:
+
+```js
+FilterSuggest.propTypes = {
+  // Optional class applied to the input element's parent
+  textFieldClassName: PropTypes.string,
+  // The current value of the input (you must handle the state yourself)
+  inputValue: PropTypes.string.isRequired,
+  // The input label
+  label: PropTypes.string,
+  // Whether or not the items are loading
+  loading: PropTypes.bool,
+  // Maximum number of items to render in dropdown list
+  maxSuggestions: PropTypes.number,
+  // Optional class applied to the dropdown menu
+  menuClassName: PropTypes.string,
+  // A callback fired whenever an input value change is detected
+  onInputValueChange: PropTypes.func.isRequired,
+  // A callback fired whenever an item is selected
+  onSelect: PropTypes.func.isRequired,
+  // An array of items to render in the dropdown
+  items: PropTypes.arrayOf(PropTypes.shape({
+    // A unique item id
+    id: PropTypes.string.isRequired,
+    // An optional icon to render on the left
+    icon: PropTypes.element,
+    // The main text to display on the item
+    primary: PropTypes.string.isRequired,
+    // Secondary text to display below the main text (useful for giving prompts)
+    secondary: PropTypes.string,
+    // You may want to provide additional item props here (for use in the onSelect callback)
+  })).isRequired,
+}
+FilterSuggest.defaultProps = {
+  label: 'Start typing to search filters...',
+  maxSuggestions: 12,
+}
+```
