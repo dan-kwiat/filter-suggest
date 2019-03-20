@@ -1,5 +1,9 @@
 # FilterSuggest
 
+A react component for achieving search-as-you-type functionality on a list of option items.  The actual sorting & filtering of items is left up to you, making it easy to combine data from multiple sources (synchronous & asynchronous).
+
+Implemented using [downshift](http://npmjs.com/package/downshift) and [material-components-web-react](https://github.com/material-components/material-components-web-react).
+
 [![Travis][build-badge]][build]
 [![npm package][npm-badge]][npm]
 [![Coveralls][coveralls-badge]][coveralls]
@@ -49,6 +53,8 @@ You'll need to have the peer dependencies installed too:
 ```
 
 ## Example
+
+A basic synchronous example using [match-sorter](https://www.npmjs.com/package/match-sorter) to sort items:
 
 ```jsx
 import React, { useState } from 'react'
@@ -125,7 +131,7 @@ FilterSuggest.propTypes = {
   })).isRequired,
 }
 FilterSuggest.defaultProps = {
-  label: 'Start typing to search filters...',
+  label: 'Start typing...',
   maxSuggestions: 12,
 }
 ```
