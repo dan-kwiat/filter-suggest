@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { render } from 'react-dom'
+import matchSorter from 'match-sorter'
 import FilterSuggest from '../../src'
 import Chips from './Chips'
 import filterOptions from './data'
@@ -13,30 +14,14 @@ const OPTIONS = filterOptions.map(x => ({
   ...getFiltersMeta(x.filterType),
 }))
 
-const matches = (str, target, prefixOnly=false) => {
-  const index = target.toLowerCase().indexOf(str.toLowerCase())
-  return prefixOnly ? (
-    index === 0
-  ) : (
-    index > -1
-  )
-}
-
-const filter = (options, inputValue) => {
-  const matchingItems = options.reduce((agg, x) => {
-    const doesMatch = matches(inputValue, x.label || x.value)
-    return doesMatch ? [...agg, x] : agg
-  }, [])
-  return matchingItems
-}
-
 const Demo = () => {
   const [inputValue, setInputValue] = useState('')
   const [selectedFilters, setSelectedFilters] = useState([])
-  const filteredOptions = filter(
+  const filteredOptions = inputValue ? matchSorter(
     OPTIONS,
     inputValue,
-  )
+    { keys: ['value', 'label'] }
+  ) : []
   return (
     <div className='demo'>
       <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
@@ -55,9 +40,9 @@ const Demo = () => {
             onInputValueChange={setInputValue}
             onSelect={x => {
               console.log(x)
-              setSelectedFilters([
-                ...new Set([...selectedFilters, x.id])
-              ])
+              setSelectedFilters(Array.from(
+                new Set([...selectedFilters, x.id])
+              ))
             }}
             options={filteredOptions}
           />
