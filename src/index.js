@@ -122,7 +122,7 @@ FilterSuggest.propTypes = {
   })).isRequired,
 }
 FilterSuggest.defaultProps = {
-  label: 'Start typing to search filters...',
+  label: 'Start typing...',
   maxSuggestions: 12,
 }
 
