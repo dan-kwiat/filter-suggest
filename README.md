@@ -23,6 +23,7 @@ Implemented using [downshift](http://npmjs.com/package/downshift) and [material-
   * [Sync](#sync)
   * [Async](#async)
 * [Props](#props)
+* [Styles](#styles)
 
 
 ## Demo
@@ -63,6 +64,7 @@ A basic synchronous example using [match-sorter](https://www.npmjs.com/package/m
 ```jsx
 import React, { useState } from 'react'
 import FilterSuggest from 'filter-suggest'
+import 'filter-suggest/es/index.css'
 import matchSorter from 'match-sorter'
 
 const ITEMS = [
@@ -108,6 +110,7 @@ import debounce from 'lodash.debounce'
 import gql from 'graphql-tag'
 import { Query } from 'react-apollo'
 import FilterSuggest from 'filter-suggest'
+import 'filter-suggest/es/index.css'
 
 const DEBOUNCE_TIME = 100
 const applyDebounced = debounce((f, x) => f(x), DEBOUNCE_TIME)
@@ -211,3 +214,27 @@ FilterSuggest.defaultProps = {
   maxSuggestions: 12,
 }
 ```
+
+## Styles
+
+With CSS:
+
+```js
+import 'filter-suggest/es/index.css'
+```
+
+With Sass:
+
+```js
+import 'filter-suggest/es/index.scss'
+```
+
+The colour theme can be customised using the following Sass mixin:
+
+```scss
+$mdc-theme-primary: #00ff00;
+```
+
+For further customisation see MDC Web's mixins for the [text field](https://github.com/material-components/material-components-web/blob/master/packages/mdc-textfield/README.md#sass-mixins) and [list](https://github.com/material-components/material-components-web/blob/master/packages/mdc-list/README.md#sass-mixins).
+
+You may also supply `textFieldClassName` and `menuClassName` props which will be applied to the appropriate components.
