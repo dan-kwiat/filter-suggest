@@ -9,8 +9,6 @@ import List, {
   ListItemMeta,
 } from '@material/react-list'
 import { CircularProgress } from '@rmwc/circular-progress'
-import '@material/react-list/dist/list.css'
-import '@material/react-text-field/dist/text-field.css'
 import '@rmwc/circular-progress/circular-progress.css'
 import './filter-suggest.css'
 
