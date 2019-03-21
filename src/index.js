@@ -57,7 +57,7 @@ const FilterSuggest = ({
       }) => (
         <div>
           <TextField
-            className={`fs-search-text-field ${textFieldClassName}`}
+            className={`fs-search-text-field ${textFieldClassName || ''}`}
             label={label}
             trailingIcon={loading ? <CircularProgress /> : undefined}
           >
@@ -74,7 +74,7 @@ const FilterSuggest = ({
             >
               <div
                 {...getMenuProps()}
-                className={`fs-filter-menu ${menuClassName}`}
+                className={`fs-filter-menu ${menuClassName || ''}`}
               >
                 <List
                   twoLine
