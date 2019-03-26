@@ -20,6 +20,8 @@ const FilterSuggest = ({
   loading,
   maxSuggestions,
   menuClassName,
+  onBlur,
+  onFocus,
   onInputValueChange,
   onSelect,
   textFieldClassName,
@@ -67,6 +69,8 @@ const FilterSuggest = ({
               className='fs-search-input'
               type='search'
               data-lpignore={true}
+              onBlur={onBlur}
+              onFocus={onFocus}
             />
           </TextField>
           {isOpen && items.length > 0 ? (
@@ -117,6 +121,8 @@ FilterSuggest.propTypes = {
   loading: PropTypes.bool,
   maxSuggestions: PropTypes.number,
   menuClassName: PropTypes.string,
+  onBlur: PropTypes.func,
+  onFocus: PropTypes.func,
   onInputValueChange: PropTypes.func.isRequired,
   onSelect: PropTypes.func.isRequired,
   textFieldClassName: PropTypes.string,

@@ -204,6 +204,10 @@ FilterSuggest.propTypes = {
   maxSuggestions: PropTypes.number,
   // Optional class applied to the dropdown menu
   menuClassName: PropTypes.string,
+  // Blur event handler
+  onBlur: PropTypes.func,
+  // Focus event handler
+  onFocus: PropTypes.func,
   // A callback fired whenever an input value change is detected
   onInputValueChange: PropTypes.func.isRequired,
   // A callback fired whenever an item is selected
