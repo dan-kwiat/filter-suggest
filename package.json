@@ -22,10 +22,10 @@
     "deploy": "gh-pages -d ./demo/dist"
   },
   "dependencies": {
-    "@material/react-list": "^0.9.0",
-    "@material/react-text-field": "^0.9.0",
-    "@rmwc/circular-progress": "^4.0.6",
-    "downshift": "^3.1.13"
+    "@material/react-list": "^0.11.0",
+    "@material/react-text-field": "^0.11.0",
+    "@rmwc/circular-progress": "^5.2.1",
+    "downshift": "^3.2.7"
   },
   "peerDependencies": {
     "prop-types": "15.x",

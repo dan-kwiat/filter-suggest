@@ -109,28 +109,28 @@
     classnames "^2.2.5"
     react "^16.4.2"
 
-"@material/react-floating-label@^0.8.0":
-  version "0.8.0"
-  resolved "https://registry.yarnpkg.com/@material/react-floating-label/-/react-floating-label-0.8.0.tgz#5cc397876d476855554310c56168ba7e3772291b"
+"@material/react-floating-label@^0.11.0":
+  version "0.11.0"
+  resolved "https://registry.yarnpkg.com/@material/react-floating-label/-/react-floating-label-0.11.0.tgz#a1de21ea093726cdd77501bff7b8acf867324468"
   dependencies:
     "@material/floating-label" "^0.41.0"
-    classnames "^2.2.5"
+    classnames "^2.2.6"
     react "^16.4.2"
 
-"@material/react-line-ripple@^0.8.0":
-  version "0.8.0"
-  resolved "https://registry.yarnpkg.com/@material/react-line-ripple/-/react-line-ripple-0.8.0.tgz#ea22e8234ac8cc9f0dedec5806698fc874a25dcf"
+"@material/react-line-ripple@^0.11.0":
+  version "0.11.0"
+  resolved "https://registry.yarnpkg.com/@material/react-line-ripple/-/react-line-ripple-0.11.0.tgz#475367dee47094c9e47c4e0042762f54f93dbd5d"
   dependencies:
     "@material/line-ripple" "^0.41.0"
-    classnames "^2.2.5"
+    classnames "^2.2.6"
     react "^16.4.2"
 
-"@material/react-list@^0.9.0":
-  version "0.9.0"
-  resolved "https://registry.yarnpkg.com/@material/react-list/-/react-list-0.9.0.tgz#e392ec80c7a38798d1ed30c7747284818cac4998"
+"@material/react-list@^0.11.0":
+  version "0.11.0"
+  resolved "https://registry.yarnpkg.com/@material/react-list/-/react-list-0.11.0.tgz#617978642776803c71472df7073f6513560d6bc0"
   dependencies:
     "@material/list" "^0.41.0"
-    classnames "^2.2.5"
+    classnames "^2.2.6"
     react "^16.4.2"
 
 "@material/react-material-icon@^0.9.0":
@@ -141,12 +141,12 @@
     classnames "^2.2.5"
     react "^16.4.2"
 
-"@material/react-notched-outline@^0.8.0":
-  version "0.8.0"
-  resolved "https://registry.yarnpkg.com/@material/react-notched-outline/-/react-notched-outline-0.8.0.tgz#83d9ef85b74f416da451f0381b7fc6ab19be9222"
+"@material/react-notched-outline@^0.11.0":
+  version "0.11.0"
+  resolved "https://registry.yarnpkg.com/@material/react-notched-outline/-/react-notched-outline-0.11.0.tgz#7554a242ea984921da9f65cb37cd2e4ef2a38be1"
   dependencies:
     "@material/notched-outline" "^0.41.0"
-    classnames "^2.2.5"
+    classnames "^2.2.6"
     react "^16.4.2"
 
 "@material/react-ripple@^0.9.0":
@@ -158,15 +158,15 @@
     react "^16.4.2"
     utility-types "^3.2.1"
 
-"@material/react-text-field@^0.9.0":
-  version "0.9.0"
-  resolved "https://registry.yarnpkg.com/@material/react-text-field/-/react-text-field-0.9.0.tgz#7889b466107ca162ffa17316bf9d5f33f61b644b"
+"@material/react-text-field@^0.11.0":
+  version "0.11.0"
+  resolved "https://registry.yarnpkg.com/@material/react-text-field/-/react-text-field-0.11.0.tgz#2a2b0a926fb7ac7291fe2105a019d2337cc099b1"
   dependencies:
-    "@material/react-floating-label" "^0.8.0"
-    "@material/react-line-ripple" "^0.8.0"
-    "@material/react-notched-outline" "^0.8.0"
+    "@material/react-floating-label" "^0.11.0"
+    "@material/react-line-ripple" "^0.11.0"
+    "@material/react-notched-outline" "^0.11.0"
     "@material/textfield" "^0.41.0"
-    classnames "^2.2.5"
+    classnames "^2.2.6"
     react "^16.4.2"
 
 "@material/ripple@^0.41.0":
@@ -214,20 +214,26 @@
   version "0.41.0"
   resolved "https://registry.yarnpkg.com/@material/typography/-/typography-0.41.0.tgz#645e0199bdba6b09d935352ab2095d07c33ec395"
 
-"@rmwc/base@^4.0.6":
-  version "4.0.6"
-  resolved "https://registry.yarnpkg.com/@rmwc/base/-/base-4.0.6.tgz#acedced29d1cb7339951a92306e20c68e92475c6"
+"@rmwc/base@^5.2.1":
+  version "5.2.1"
+  resolved "https://registry.yarnpkg.com/@rmwc/base/-/base-5.2.1.tgz#deb729f0a8c78f77f9cae77265a237d80e3965cd"
   dependencies:
-    classnames "^2.2.5"
+    "@rmwc/types" "^5.2.1"
+    classnames "^2.2.6"
+    focus-trap "^4.0.2"
     hyperform "^0.9.9"
     mutation-observer "^1.0.3"
-    prop-types "^15.6.1"
 
-"@rmwc/circular-progress@^4.0.6":
-  version "4.0.6"
-  resolved "https://registry.yarnpkg.com/@rmwc/circular-progress/-/circular-progress-4.0.6.tgz#6990001d76289616424f41553b7c36f1b32581a7"
+"@rmwc/circular-progress@^5.2.1":
+  version "5.2.1"
+  resolved "https://registry.yarnpkg.com/@rmwc/circular-progress/-/circular-progress-5.2.1.tgz#d6626b8145cf0d1dcc29c0d07e69bf3b1bf21d1b"
   dependencies:
-    "@rmwc/base" "^4.0.6"
+    "@rmwc/base" "^5.2.1"
+    "@rmwc/types" "^5.2.1"
+
+"@rmwc/types@^5.2.1":
+  version "5.2.1"
+  resolved "https://registry.yarnpkg.com/@rmwc/types/-/types-5.2.1.tgz#5b9ab207cc40421b5085a07f3389423589c811f9"
 
 "@types/node@^8.0.7":
   version "8.10.39"
@@ -1905,7 +1911,7 @@ class-utils@^0.3.5:
     isobject "^3.0.0"
     static-extend "^0.1.1"
 
-classnames@^2.2.5:
+classnames@^2.2.5, classnames@^2.2.6:
   version "2.2.6"
   resolved "https://registry.yarnpkg.com/classnames/-/classnames-2.2.6.tgz#43935bffdd291f326dad0a205309b38d00f650ce"
 
@@ -2556,9 +2562,9 @@ double-ended-queue@^2.1.0-0:
   version "2.1.0-0"
   resolved "https://registry.yarnpkg.com/double-ended-queue/-/double-ended-queue-2.1.0-0.tgz#103d3527fd31528f40188130c841efdd78264e5c"
 
-downshift@^3.1.13:
-  version "3.1.13"
-  resolved "https://registry.yarnpkg.com/downshift/-/downshift-3.1.13.tgz#0535be2c90323675233aba00fe1859ab39dec604"
+downshift@^3.2.7:
+  version "3.2.7"
+  resolved "https://registry.yarnpkg.com/downshift/-/downshift-3.2.7.tgz#0c40d78d1cbc24753c7a622cfc664df1c9480b4a"
   dependencies:
     "@babel/runtime" "^7.1.2"
     compute-scroll-into-view "^1.0.9"
@@ -3151,6 +3157,13 @@ flush-write-stream@^1.0.0:
   dependencies:
     inherits "^2.0.1"
     readable-stream "^2.0.4"
+
+focus-trap@^4.0.2:
+  version "4.0.2"
+  resolved "https://registry.yarnpkg.com/focus-trap/-/focus-trap-4.0.2.tgz#4ee2b96547c9ea0e4252a2d4b2cca68944194663"
+  dependencies:
+    tabbable "^3.1.2"
+    xtend "^4.0.1"
 
 follow-redirects@1.0.0:
   version "1.0.0"
@@ -5818,7 +5831,7 @@ promisify-call@^2.0.2:
   dependencies:
     with-callback "^1.0.2"
 
-prop-types@^15.6.0, prop-types@^15.6.1, prop-types@^15.6.2:
+prop-types@^15.6.0, prop-types@^15.6.2:
   version "15.6.2"
   resolved "https://registry.yarnpkg.com/prop-types/-/prop-types-15.6.2.tgz#05d5ca77b4453e985d60fc7ff8c859094a497102"
   dependencies:
@@ -6997,6 +7010,10 @@ supports-color@^6.1.0:
   dependencies:
     has-flag "^3.0.0"
 
+tabbable@^3.1.2:
+  version "3.1.2"
+  resolved "https://registry.yarnpkg.com/tabbable/-/tabbable-3.1.2.tgz#f2d16cccd01f400e38635c7181adfe0ad965a4a2"
+
 tapable@^1.0.0:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/tapable/-/tapable-1.1.1.tgz#4d297923c5a72a42360de2ab52dadfaaec00018e"
@@ -7621,7 +7638,7 @@ xregexp@2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/xregexp/-/xregexp-2.0.0.tgz#52a63e56ca0b84a7f3a5f3d61872f126ad7a5943"
 
-xtend@^4.0.0, xtend@~4.0.1:
+xtend@^4.0.0, xtend@^4.0.1, xtend@~4.0.1:
   version "4.0.1"
   resolved "https://registry.yarnpkg.com/xtend/-/xtend-4.0.1.tgz#a5c6d532be656e23db820efb943a1f04998d63af"
 
