@@ -180,22 +180,10 @@ FilterSuggest accepts the following props:
 
 ```js
 FilterSuggest.propTypes = {
-  // Optional class applied to the input element's parent
-  textFieldClassName: PropTypes.string,
+  // Optional class applied to the parent div
+  className: PropTypes.string,
   // The current value of the input (you must handle the state yourself)
   inputValue: PropTypes.string.isRequired,
-  // The input label
-  label: PropTypes.string,
-  // Whether or not the items are loading
-  loading: PropTypes.bool,
-  // Maximum number of items to render in dropdown list
-  maxSuggestions: PropTypes.number,
-  // Optional class applied to the dropdown menu
-  menuClassName: PropTypes.string,
-  // A callback fired whenever an input value change is detected
-  onInputValueChange: PropTypes.func.isRequired,
-  // A callback fired whenever an item is selected
-  onSelect: PropTypes.func.isRequired,
   // An array of items to render in the dropdown
   items: PropTypes.arrayOf(PropTypes.shape({
     // A unique item id
@@ -208,6 +196,20 @@ FilterSuggest.propTypes = {
     secondary: PropTypes.string,
     // You may want to provide additional item props here (for use in the onSelect callback)
   })).isRequired,
+  // The input label
+  label: PropTypes.string,
+  // Whether or not the items are loading
+  loading: PropTypes.bool,
+  // Maximum number of items to render in dropdown list
+  maxSuggestions: PropTypes.number,
+  // Optional class applied to the dropdown menu
+  menuClassName: PropTypes.string,
+  // A callback fired whenever an input value change is detected
+  onInputValueChange: PropTypes.func.isRequired,
+  // A callback fired whenever an item is selected
+  onSelect: PropTypes.func.isRequired,
+  // Optional class applied to the input element's parent
+  textFieldClassName: PropTypes.string,
 }
 FilterSuggest.defaultProps = {
   label: 'Start typing...',

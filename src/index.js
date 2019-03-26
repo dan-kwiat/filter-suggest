@@ -13,15 +13,16 @@ import '@rmwc/circular-progress/circular-progress.css'
 import './filter-suggest.css'
 
 const FilterSuggest = ({
-  textFieldClassName,
+  className,
   inputValue,
+  items,
   label,
   loading,
   maxSuggestions,
   menuClassName,
   onInputValueChange,
   onSelect,
-  items,
+  textFieldClassName,
 }) => {
   return (
     <Downshift
@@ -55,7 +56,7 @@ const FilterSuggest = ({
         setHighlightedIndex,
         selectedItem,
       }) => (
-        <div>
+        <div className={className || ''}>
           <TextField
             className={`fs-search-text-field ${textFieldClassName || ''}`}
             label={label}
@@ -104,20 +105,21 @@ const FilterSuggest = ({
   )
 }
 FilterSuggest.propTypes = {
-  textFieldClassName: PropTypes.string,
+  className: PropTypes.string,
   inputValue: PropTypes.string.isRequired,
-  label: PropTypes.string,
-  loading: PropTypes.bool,
-  maxSuggestions: PropTypes.number,
-  menuClassName: PropTypes.string,
-  onInputValueChange: PropTypes.func.isRequired,
-  onSelect: PropTypes.func.isRequired,
   items: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.string.isRequired,
     icon: PropTypes.element,
     primary: PropTypes.string.isRequired,
     secondary: PropTypes.string,
   })).isRequired,
+  label: PropTypes.string,
+  loading: PropTypes.bool,
+  maxSuggestions: PropTypes.number,
+  menuClassName: PropTypes.string,
+  onInputValueChange: PropTypes.func.isRequired,
+  onSelect: PropTypes.func.isRequired,
+  textFieldClassName: PropTypes.string,
 }
 FilterSuggest.defaultProps = {
   label: 'Start typing...',
